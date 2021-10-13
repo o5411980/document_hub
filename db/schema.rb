@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_015827) do
+ActiveRecord::Schema.define(version: 2021_10_13_121446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2021_10_13_015827) do
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_authors_on_document_id"
     t.index ["user_id"], name: "index_authors_on_user_id"
+  end
+
+  create_table "department_leaders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "department_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_department_leaders_on_department_id"
+    t.index ["user_id"], name: "index_department_leaders_on_user_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -64,12 +73,39 @@ ActiveRecord::Schema.define(version: 2021_10_13_015827) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id"], name: "index_project_users_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.integer "status"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "review_documents", force: :cascade do |t|
+    t.bigint "document_id"
+    t.bigint "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_review_documents_on_document_id"
+    t.index ["review_id"], name: "index_review_documents_on_review_id"
+  end
+
+  create_table "reviewers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_reviewers_on_review_id"
+    t.index ["user_id"], name: "index_reviewers_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -113,5 +149,13 @@ ActiveRecord::Schema.define(version: 2021_10_13_015827) do
   add_foreign_key "authorizers", "users"
   add_foreign_key "authors", "documents"
   add_foreign_key "authors", "users"
+  add_foreign_key "department_leaders", "departments"
+  add_foreign_key "department_leaders", "users"
   add_foreign_key "documents", "products"
+  add_foreign_key "project_users", "projects"
+  add_foreign_key "project_users", "users"
+  add_foreign_key "review_documents", "documents"
+  add_foreign_key "review_documents", "reviews"
+  add_foreign_key "reviewers", "reviews"
+  add_foreign_key "reviewers", "users"
 end
