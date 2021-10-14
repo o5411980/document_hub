@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :documents, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   enum category: {'マウス': 1, 'キーボード': 2, 'バッテリー': 3}
   enum status: {'開発中': 0, '製造中': 1, '製造中止': 2}
