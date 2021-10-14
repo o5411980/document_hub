@@ -11,6 +11,9 @@
   <%= f.label :product_id, "対象製品" %>
   <%= f.select :product_id_eq, @product_choice, {include_blank: '選択なし'} %>
 
+  <%= f.label :product_status, "対象製品の状況" %>
+  <%= f.select :product_status_eq, Product.statuses.to_a, {include_blank: '選択なし'} %>
+
   <%= f.label :product_location, "製造拠点" %>
   <%= f.select :product_location_eq, Product.locations.to_a, {include_blank: '選択なし'} %><br>
 
@@ -36,6 +39,7 @@
     <tr>
       <th>Title</th>
       <th>対象製品</th>
+      <th>対象製品の状況</th>
       <th>製造拠点</th>
       <th>Category</th>
       <th>Authorize</th>
@@ -48,6 +52,7 @@
       <tr>
         <td><%= document.title %></td>
         <td><%= document.product.name %></td>
+        <td><%= document.product.status %></td>
         <td><%= document.product.location %></td>
         <td><%= document.category %></td>
         <td><%= document.authorize %></td>
