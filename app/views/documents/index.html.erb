@@ -11,8 +11,11 @@
   <%= f.label :product_id, "対象製品" %>
   <%= f.select :product_id_eq, @product_choice, {include_blank: '選択なし'} %>
 
-  <%= f.label :title, "製造拠点" %>
-  <%= f.select :title_eq, Product.locations.to_a, {include_blank: '選択なし'} %><br>
+  <%= f.label :product_status, "対象製品の状況" %>
+  <%= f.select :product_status_eq, Product.statuses.to_a, {include_blank: '選択なし'} %>
+
+  <%= f.label :product_location, "製造拠点" %>
+  <%= f.select :product_location_eq, Product.locations.to_a, {include_blank: '選択なし'} %><br>
 
   <%= f.label :category, "文書タイプ" %>
   <% Document.categories.each do |category| %>
@@ -26,9 +29,9 @@
 <% end %>
 
 <% if params[:q].present? %>
-  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"#{params[:q][:title_cont]}", "product_id_eq"=>"#{params[:q][:product_id_eq]}", "title_eq"=>"", "category_eq_any"=>params[:q][:category_eq_any]}), class: 'btn btn-success' %>
+  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"#{params[:q][:title_cont]}", "product_id_eq"=>"#{params[:q][:product_id_eq]}", "product_status_eq"=>params[:q][:product_status_eq], "product_location_eq"=>params[:q][:product_location_eq], "category_eq_any"=>params[:q][:category_eq_any]}), class: 'btn btn-success' %>
 <% else %>
-  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"", "product_id_eq"=>"", "title_eq"=>"", "category_eq_any"=>""}), class: 'btn btn-success' %>
+  <%= link_to '一括ダウンロード', documents_path, class: 'btn btn-success', data: { confirm: 'ダウンロードは検索後に有効になります。' }  %>
 <% end %>
 
 <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
@@ -36,6 +39,7 @@
     <tr>
       <th>Title</th>
       <th>対象製品</th>
+      <th>対象製品の状況</th>
       <th>製造拠点</th>
       <th>Category</th>
       <th>Authorize</th>
@@ -48,6 +52,7 @@
       <tr>
         <td><%= document.title %></td>
         <td><%= document.product.name %></td>
+        <td><%= document.product.status %></td>
         <td><%= document.product.location %></td>
         <td><%= document.category %></td>
         <td><%= document.authorize %></td>
