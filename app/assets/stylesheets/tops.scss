@@ -2,10 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div.image-before img {
-  width: 30%;
+.top {
+  text-align: center;
 }
 
-div.image-after img{
-  width: 30%;
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+}
+
+.top-container img {
+  width: 100%;
+  height: auto;
 }
