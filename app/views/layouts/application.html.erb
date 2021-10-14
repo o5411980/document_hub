@@ -10,20 +10,21 @@
   </head>
 
   <body>
-    <div class="app-title navbar navbar-expand-md navbar-light bg-light">
+    <div class="app-title navbar navbar-expand-md navbar-dark bg-dark">
       <div class="navbar-brand">
         LOGO
       </div>
       <div class="navbar-link">
         <% if user_signed_in? %>
-          <%= link_to "プロジェクト一覧", projects_path %>
-          <%= link_to "製品一覧", products_path %>
-          <%= link_to "文書一覧", documents_path %>
-          <%= link_to "プロフィール", user_path(current_user.id) %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <%= link_to "プロジェクト一覧", projects_path, class: 'btn btn-secondary' %>
+          <%= link_to "製品一覧", products_path, class: 'btn btn-secondary' %>
+          <%= link_to "文書一覧", documents_path, class: 'btn btn-secondary' %>
+          <%= link_to "プロフィール", user_path(current_user.id), class: 'btn btn-secondary' %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-secondary' %>
         <% else %>
-          <%= link_to "新規登録", new_user_registration_path %>
-          <%= link_to "ログイン", new_user_session_path %>
+          <%= link_to 'ゲストログイン', tops_guest_sign_in_path, method: :post, class: 'btn btn-secondary' %>
+          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-secondary' %>
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-secondary' %>
         <% end %>
       </div>
     </div>
