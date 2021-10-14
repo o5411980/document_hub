@@ -18,7 +18,15 @@
   <%= f.submit "検索" %>
 <% end %>
 
-<%= link_to 'ISO文書', documents_path("q"=>{"title_cont"=>"", "product_id_eq"=>"", "title_eq"=>"", "category_eq_any"=>["", "", "", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", ""]}), class: 'btn btn-success'  %>
+<% if params[:q].present? %>
+  <% if params[:q][:location_eq].present? %>
+    <%= link_to 'ISO文書', documents_path("q"=>{"title_cont"=>"", "product_id_eq"=>"", "product_status_eq"=>"1", "product_location_eq"=>params[:q][:location_eq], "category_eq_any"=>["", "", "", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", ""]}), class: 'btn btn-success'  %>
+  <% else %>
+    <%= link_to 'ISO文書', products_path, class: 'btn btn-success', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
+  <% end %>
+<% else %>
+  <%= link_to 'ISO文書', products_path, class: 'btn btn-success', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
+<% end %>
 
 <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
   <thead>
