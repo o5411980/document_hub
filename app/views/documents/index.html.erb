@@ -29,9 +29,9 @@
 <% end %>
 
 <% if params[:q].present? %>
-  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"#{params[:q][:title_cont]}", "product_id_eq"=>"#{params[:q][:product_id_eq]}", "title_eq"=>"", "category_eq_any"=>params[:q][:category_eq_any]}), class: 'btn btn-success' %>
+  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"#{params[:q][:title_cont]}", "product_id_eq"=>"#{params[:q][:product_id_eq]}", "product_status_eq"=>params[:q][:product_status_eq], "product_location_eq"=>params[:q][:product_location_eq], "category_eq_any"=>params[:q][:category_eq_any]}), class: 'btn btn-success' %>
 <% else %>
-  <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"", "product_id_eq"=>"", "title_eq"=>"", "category_eq_any"=>""}), class: 'btn btn-success' %>
+  <%= link_to '一括ダウンロード', documents_path, class: 'btn btn-success', data: { confirm: 'ダウンロードは検索後に有効になります。' }  %>
 <% end %>
 
 <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
