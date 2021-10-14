@@ -10,10 +10,19 @@
       </ul>
     </div>
   <% end %>
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.select :product_id, Product.all.map{|product| [product[:name], product[:id]]}, {include_blank: '必ず選択'}  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :project_id %>
+    <%= form.select :project_id, Project.all.map{|project| [project[:name], project[:id]]}, {include_blank: '必ず選択'}  %>
+  </div>
 
   <div class="field">
     <%= form.label :requester %>
-    <%= form.number_field :requester %>
+    <%= form.select :requester, [["#{current_user.name}", current_user.id]] %>
   </div>
 
   <div class="field">

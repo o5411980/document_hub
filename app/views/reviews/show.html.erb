@@ -1,8 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>対象の製品:</strong>
+  <%= @review.product.name %>
+</p>
+
+<p>
+  <strong>担当プロジェクト:</strong>
+  <%= @review.project.name %>
+</p>
+
+<p>
   <strong>Requester:</strong>
-  <%= @review.requester %>
+  <%= User.find(@review.requester).name %>
 </p>
 
 <p>
