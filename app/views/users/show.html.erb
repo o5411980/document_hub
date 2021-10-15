@@ -10,6 +10,8 @@
 <%= @user.admin %>
 <h3>社員番号</h3>
 <%= @user.employee_number %>
+<h3>所属部署</h3>
+<%= @user.member_departments[0][:name] %>
 <br>
 <br>
 <%= link_to 'プロフィールを編集', edit_user_registration_path %><br>
