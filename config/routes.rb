@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post '/users/:id', to: 'users#update'
   resources :homes, only: [:index]
 
+  resources :members, only: [:create, :destroy]
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end

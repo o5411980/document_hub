@@ -15,5 +15,21 @@
   <%= @department.description %>
 </p>
 
+<p>
+  <strong>Members:</strong>
+  <%= @department.member_users.each do |member| %>
+    <%= link_to "#{member.name}", user_path(member.id) %>
+  <% end %>
+</p>
+
+<div class="new-department-member">
+  <%= form_with model: :member, scope: :post, url: members_path(@department), local: true do |form| %>
+    <%= select_tag :user, options_for_select(User.all.map{|u| [u.name, [u.id, @department.id]]}), prompt: '新規メンバーを選択' %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">招待</button>
+    </span>
+  <% end %>
+</div>
+
 <%= link_to 'Edit', edit_department_path(@department) %> |
 <%= link_to 'Back', departments_path %>
