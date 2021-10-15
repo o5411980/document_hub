@@ -1,4 +1,4 @@
-class DepartmentLeader < ApplicationRecord
+class Members < ApplicationRecord
   belongs_to :user
   belongs_to :department
 end
