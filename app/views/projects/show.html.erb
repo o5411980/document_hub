@@ -15,5 +15,23 @@
   <%= @project.description %>
 </p>
 
+<p>
+  <strong>Members:</strong>
+  <%= @project.project_user_users.each do |pjmember| %>
+    <span><%= "#{pjmember.name}" %><span>
+    <span>(<%= link_to "#{pjmember.member_departments[0].name}", department_path(pjmember.member_departments[0].id) %>)</span>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with model: :project_user, scope: :post, url: project_users_path(@project), local: true do |form| %>
+    <%= select_tag :user, options_for_select(User.all.map{|u| [u.name, [u.id, @project.id]]}), prompt: '新規メンバーを選択' %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
