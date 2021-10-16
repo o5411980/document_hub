@@ -1,10 +1,19 @@
 class MembersController < ApplicationController
   def create
-    member = User.find(params[:user][1]).members.create(department_id: params[:user][4])
-    redirect_to department_path(params[:user][4]), notice: "#{member.user.name}さんを#{member.department.name}に加えました"
+#    byebug
+    member = Member.create(member_params)
+    redirect_to department_path(member.department_id), notice: "#{member.user.name}さんを#{member.department.name}に加えました"
   end
 
   def destroy
+    byebug
+    Member.find(params[:id]).destroy
+    # params[:id]で削除する membersテーブルのレコードがわかる。そこからどうやってdepartment_idとuser_idを読みだすか??
+    redirect_to departments_path, notice: "削除しました"
+  end
 
+  private
+  def member_params
+    params.require(:member).permit(:user_id, :department_id)
   end
 end
