@@ -41,6 +41,23 @@
 </p>
 
 <p>
+  <strong>Reviewer:</strong>
+  <%= @review.reviewer_users.each do |user| %>
+    <span><%= "#{user.name}" %><span>
+    <span>(<%= link_to "#{user.member_departments[0].name}", department_path(user.member_departments[0].id) %>)</span>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with model: :reviewer, scope: :post, url: reviewers_path(@review), local: true do |form| %>
+    <%= select_tag :user, options_for_select(User.all.map{|u| [u.name, [u.id, @review.id]]}), prompt: 'レビュー担当者を選択' %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+<p>
   <strong>Judge:</strong>
   <%= @review.judge %>
 </p>
