@@ -5,6 +5,10 @@ class User < ApplicationRecord
   has_many :project_users, dependent: :destroy
   has_many :project_user_projects, through: :project_users, source: :project
 
+  has_many :reviewers, dependent: :destroy
+  has_many :reviewer_reviews, through: :reviewers, source: :review
+
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
