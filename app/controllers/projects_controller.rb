@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
+    @users = User.where.not(id: @project.project_user_users.map{|user| user.id})
   end
 
   # GET /projects/new

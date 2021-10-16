@@ -17,15 +17,19 @@
 
 <p>
   <strong>Members:</strong>
-  <%= @project.project_user_users.each do |pjmember| %>
+  <% @project.project_users.each do |pj_user| %>
+    <% pjmember = pj_user.user %>
     <span><%= "#{pjmember.name}" %><span>
-    <span>(<%= link_to "#{pjmember.member_departments[0].name}", department_path(pjmember.member_departments[0].id) %>)</span>
+    <span>(<%= link_to "#{pjmember.name}", department_path(pjmember.member_departments[0].id) %>)</span>
+    <%= form_with scope: :project_user, method: :delete, url: project_user_path(pj_user), local: true do |form| %>
+      <%= form.submit '削除' %>
+    <% end %>
   <% end %>
 </p>
 
 <div class="new-project-member">
-  <%= form_with model: :project_user, scope: :post, url: project_users_path(@project), local: true do |form| %>
-    <%= select_tag :user, options_for_select(User.all.map{|u| [u.name, [u.id, @project.id]]}), prompt: '新規メンバーを選択' %>
+  <%= form_with scope: :project_user, url: project_users_path, local: true do |form| %>
+    <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: '新規メンバーを選択' %>
     <span class='input-group-append'>
       <button type="submit" class="btn btn-info btn-flat">追加</button>
     </span>
