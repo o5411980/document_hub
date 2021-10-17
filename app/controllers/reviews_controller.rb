@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1 or /reviews/1.json
   def show
+    @users = User.where.not(id: @review.reviewer_users.map{|user| user.id})
   end
 
   # GET /reviews/new

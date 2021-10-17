@@ -6,7 +6,6 @@ class MembersController < ApplicationController
   end
 
   def destroy
-    byebug
     Member.find(params[:id]).destroy
     # params[:id]で削除する membersテーブルのレコードがわかる。そこからどうやってdepartment_idとuser_idを読みだすか??
     redirect_to departments_path, notice: "削除しました"

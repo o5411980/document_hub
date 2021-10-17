@@ -42,15 +42,19 @@
 
 <p>
   <strong>Reviewer:</strong>
-  <%= @review.reviewer_users.each do |user| %>
+  <% @review.reviewers.each do |reviewer| %>
+    <% user = reviewer.user%>
     <span><%= "#{user.name}" %><span>
-    <span>(<%= link_to "#{user.member_departments[0].name}", department_path(user.member_departments[0].id) %>)</span>
+    <span>(<%= link_to "#{user.name}", department_path(user.member_departments[0].id) %>)</span>
+    <%= form_with scope: :reviewer, method: :delete, url: reviewer_path(reviewer), local: true do |form| %>
+      <%= form.submit '削除' %>
+    <% end %>
   <% end %>
 </p>
 
 <div class="new-project-member">
-  <%= form_with model: :reviewer, scope: :post, url: reviewers_path(@review), local: true do |form| %>
-    <%= select_tag :user, options_for_select(User.all.map{|u| [u.name, [u.id, @review.id]]}), prompt: 'レビュー担当者を選択' %>
+  <%= form_with scope: :reviewer, url: reviewers_path, local: true do |form| %>
+    <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: 'レビュー担当者を選択' %>
     <span class='input-group-append'>
       <button type="submit" class="btn btn-info btn-flat">追加</button>
     </span>
