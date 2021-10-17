@@ -30,6 +30,7 @@
 <div class="new-project-member">
   <%= form_with scope: :project_user, url: project_users_path, local: true do |form| %>
     <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: '新規メンバーを選択' %>
+    <%= form.hidden_field :project_id, value: @project.id %>
     <span class='input-group-append'>
       <button type="submit" class="btn btn-info btn-flat">追加</button>
     </span>
