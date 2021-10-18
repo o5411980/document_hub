@@ -1,6 +1,7 @@
 class Document < ApplicationRecord
   mount_uploader :filepath, DocumentUploader
   belongs_to :product
+  belongs_to :user
 
   has_many :review_documents, dependent: :destroy
   has_many :review_document_reviews, through: :review_documents, source: :review

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :documents, dependent: :destroy
+
   has_many :members, dependent: :destroy
   has_many :member_departments, through: :members, source: :department
 

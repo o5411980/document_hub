@@ -1,28 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>製品名:</strong>
   <%= @product.name %>
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong>製品カテゴリー:</strong>
   <%= @product.category %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>概要:</strong>
   <%= @product.description %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong>現況:</strong>
   <%= @product.status %>
 </p>
 
 <p>
-  <strong>Location:</strong>
+  <strong>製造拠点:</strong>
   <%= @product.location %>
+</p>
+
+<p>
+  <strong>担当プロジェクト:</strong>
+
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
