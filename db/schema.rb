@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_14_062857) do
+ActiveRecord::Schema.define(version: 2021_10_15_161320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,21 +33,13 @@ ActiveRecord::Schema.define(version: 2021_10_14_062857) do
     t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
-  create_table "department_leaders", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "department_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["department_id"], name: "index_department_leaders_on_department_id"
-    t.index ["user_id"], name: "index_department_leaders_on_user_id"
-  end
-
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.integer "location"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "leader"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -61,6 +53,15 @@ ActiveRecord::Schema.define(version: 2021_10_14_062857) do
     t.boolean "authorize"
     t.bigint "product_id"
     t.index ["product_id"], name: "index_documents_on_product_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "department_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_members_on_department_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -153,9 +154,9 @@ ActiveRecord::Schema.define(version: 2021_10_14_062857) do
   add_foreign_key "authorizers", "users"
   add_foreign_key "authors", "documents"
   add_foreign_key "authors", "users"
-  add_foreign_key "department_leaders", "departments"
-  add_foreign_key "department_leaders", "users"
   add_foreign_key "documents", "products"
+  add_foreign_key "members", "departments"
+  add_foreign_key "members", "users"
   add_foreign_key "project_users", "projects"
   add_foreign_key "project_users", "users"
   add_foreign_key "review_documents", "documents"

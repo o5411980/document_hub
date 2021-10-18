@@ -41,6 +41,50 @@
 </p>
 
 <p>
+  <strong>Reviewer:</strong>
+  <% @review.reviewers.each do |reviewer| %>
+    <% user = reviewer.user%>
+    <span><%= "#{user.name}" %><span>
+    <span>(<%= link_to "#{user.name}", department_path(user.member_departments[0].id) %>)</span>
+    <%= form_with scope: :reviewer, method: :delete, url: reviewer_path(reviewer), local: true do |form| %>
+      <%= form.submit '削除' %>
+    <% end %>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with scope: :reviewer, url: reviewers_path, local: true do |form| %>
+    <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: 'レビュー担当者を選択' %>
+    <%= form.hidden_field :review_id, value: @review.id %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+<p>
+  <strong>審査対象の技術文書:</strong>
+  <% @review.review_documents.each do |review_document| %>
+    <% document = review_document.document %>
+    <span><%= "#{document.title}" %><span>
+    <span>(<%= link_to "pdf", document.filepath.url %>)</span>
+    <%= form_with scope: :review_document, method: :delete, url: review_document_path(review_document), local: true do |form| %>
+      <%= form.submit '審査から除外' %>
+    <% end %>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with scope: :review_document, url: review_documents_path, local: true do |form| %>
+    <%= form.select :document_id, options_for_select(@documents.map{|d| [d.title, d.id]}), prompt: 'レビュー対象を選択' %>
+    <%= form.hidden_field :review_id, value: @review.id %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+<p>
   <strong>Judge:</strong>
   <%= @review.judge %>
 </p>

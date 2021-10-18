@@ -9,6 +9,8 @@ class DepartmentsController < ApplicationController
 
   # GET /departments/1 or /departments/1.json
   def show
+    @users = User.where.not(id: @department.member_users.map(&:id))
+#    @users = User.where.not(id: @department.member_users.map{|user| user.id})
   end
 
   # GET /departments/new

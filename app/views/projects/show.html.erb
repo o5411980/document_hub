@@ -15,5 +15,28 @@
   <%= @project.description %>
 </p>
 
+<p>
+  <strong>Members:</strong>
+  <% @project.project_users.each do |pj_user| %>
+    <% pjmember = pj_user.user %>
+    <span><%= "#{pjmember.name}" %><span>
+    <span>(<%= link_to "#{pjmember.name}", department_path(pjmember.member_departments[0].id) %>)</span>
+    <%= form_with scope: :project_user, method: :delete, url: project_user_path(pj_user), local: true do |form| %>
+      <%= form.submit '削除' %>
+    <% end %>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with scope: :project_user, url: project_users_path, local: true do |form| %>
+    <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: '新規メンバーを選択' %>
+    <%= form.hidden_field :project_id, value: @project.id %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

@@ -1,3 +1,11 @@
-div.navbar-link a  {
+.navbar-link {
+  margin-left: auto;
+}
+
+.navbar .btn + .btn {
+  margin-left: 5px;
+}
+
+div .navbar-link a  {
   color: #fff;
 }
