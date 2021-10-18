@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :members, only: [:create, :destroy]
   resources :project_users, only: [:create, :destroy]
   resources :reviewers, only: [:create, :destroy]
+  resources :review_documents, only: [:create, :destroy]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

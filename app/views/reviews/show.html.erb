@@ -63,6 +63,28 @@
 </div>
 
 <p>
+  <strong>審査対象の技術文書:</strong>
+  <% @review.review_documents.each do |review_document| %>
+    <% document = review_document.document %>
+    <span><%= "#{document.title}" %><span>
+    <span>(<%= link_to "pdf", document.filepath.url %>)</span>
+    <%= form_with scope: :review_document, method: :delete, url: review_document_path(review_document), local: true do |form| %>
+      <%= form.submit '審査から除外' %>
+    <% end %>
+  <% end %>
+</p>
+
+<div class="new-project-member">
+  <%= form_with scope: :review_document, url: review_documents_path, local: true do |form| %>
+    <%= form.select :document_id, options_for_select(@documents.map{|d| [d.title, d.id]}), prompt: 'レビュー対象を選択' %>
+    <%= form.hidden_field :review_id, value: @review.id %>
+    <span class='input-group-append'>
+      <button type="submit" class="btn btn-info btn-flat">追加</button>
+    </span>
+  <% end %>
+</div>
+
+<p>
   <strong>Judge:</strong>
   <%= @review.judge %>
 </p>
