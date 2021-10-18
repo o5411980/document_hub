@@ -13,4 +13,6 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  enum mr_ms: {'Mr.': 1, 'Ms.': 2}
 end
