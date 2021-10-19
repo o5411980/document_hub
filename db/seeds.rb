@@ -13,13 +13,17 @@ product_status = ['開発中', '製造中', '製造中止']
 product_locations = ['未定', '東京', '深圳', 'バンコク', 'デュッセルドルフ', 'ダラス']
 document_category = ['その他文書', 'ビジネスプラン', 'マスタープラン', '製品仕様書', '設計書', '試作報告書', '量産試作報告書', '歩留り評価報告書', '作業手順書', '議事録']
 project_status = ['活動中', '一時中止', '終了']
+#review_stage = ['Review 1', 'Review 2', 'Review 3']
+#review_judge = ['未承認', '承認済']
 
+###departmentsテーブルのデータ作成
 #7.times { |i|
 #  Department.create!(
 #    {id: i+1, name: "#{department_name[i]}", location: locations.sample, description: Faker::Lorem.word }
 #  )
 #}
 
+###usersテーブルのデータ作成
 #7.times { |i|
 #  User.create!(
 #    { name: "test0#{i+1}",
@@ -30,6 +34,7 @@ project_status = ['活動中', '一時中止', '終了']
 #  )
 #}
 
+###productsテーブルのデータ作成
 #7.times { |i|
 #  Product.create!(
 #    {
@@ -62,7 +67,7 @@ project_status = ['活動中', '一時中止', '終了']
 #  }
 #end
 
-# documentsのseedデータ作成。Productそれぞれについて、文書を作っていく。下記は "製造中"と”製造中止”のみ作成。
+###documentsのseedデータ作成。Productそれぞれについて、文書を作っていく。下記は "製造中"と”製造中止”のみ作成。
 #Product.all.each { |product|
 #  case product.status
 #    when "製造中" then
@@ -94,7 +99,7 @@ project_status = ['活動中', '一時中止', '終了']
 #  end
 #}
 
-#projectのシードデータ。productごとにprojectを作っていく。
+###projectのシードデータ。productごとにprojectを作っていく。
 #for element in Product.all
 #  pj = Project.create!(
 #    product_id: element.id,
@@ -106,4 +111,37 @@ project_status = ['活動中', '一時中止', '終了']
 #  else
 #    pj.update(status: "終了")
 #  end
+#end
+
+###Reviewのシードデータ。product-project と product-review の アソシエーションを使って、seedデータを作っていく。開発済のproductのみ作成。
+#for element in Product.where.not(status: '開発中')
+#  dr1 = Review.create!(
+#    project_id: element.projects[0].id,
+#    product_id: element.id,
+#    requester: User.all.sample.id,
+#    stage: "Review 1",
+#    description: "#{element.name}のDR1",
+#    judge: '承認済',
+#    comment: "テストデータ",
+#  )
+#  dr2 = Review.create!(
+#    project_id: element.projects[0].id,
+#    product_id: element.id,
+#    requester: User.all.sample.id,
+#    stage: "Review 2",
+#    former_review: dr1.id,
+#    description: "#{element.name}のDR2",
+#    judge: '承認済',
+#    comment: "テストデータ",
+#  )
+#  dr3 = Review.create!(
+#    project_id: element.projects[0].id,
+#    product_id: element.id,
+#    requester: User.all.sample.id,
+#    stage: "Review 3",
+#    former_review: dr2.id,
+#    description: "#{element.name}のDR3",
+#    judge: '承認済',
+#    comment: "テストデータ",
+#  )
 #end
