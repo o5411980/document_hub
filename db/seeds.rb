@@ -145,3 +145,8 @@ project_status = ['活動中', '一時中止', '終了']
 #    comment: "テストデータ",
 #  )
 #end
+
+###DepartmentとUserの中間テーブルのseedデータ作成
+#for element in User.all
+#  Member.create!(department_id: 1+(element.id)%7, user_id: element.id)
+#end
