@@ -24,7 +24,7 @@ project_status = ['活動中', '一時中止', '終了']
 #}
 
 ###usersテーブルのデータ作成
-#7.times { |i|
+#14.times { |i|
 #  User.create!(
 #    { name: "test0#{i+1}",
 #      mr_ms: ['Mr.', 'Ms.'].sample,
@@ -149,4 +149,12 @@ project_status = ['活動中', '一時中止', '終了']
 ###DepartmentとUserの中間テーブルのseedデータ作成
 #for element in User.all
 #  Member.create!(department_id: 1+(element.id)%7, user_id: element.id)
+#end
+
+###project_usersテーブルのseedデータ作成。projectごとにuserをアサインしていく。
+#for element in Project.all
+#  for department in ["企画課", "営業課", "開発課", "製造課"] #課ではなく、部の方が良い気がする。
+#    user = Department.find_by(name: "#{department}").member_users.sample
+#    user.project_users.create!(project_id: element.id)
+#  end
 #end
