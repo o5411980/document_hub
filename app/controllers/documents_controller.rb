@@ -55,6 +55,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 #    byebug
     @document.product_id = document_params[:product_id] #入力時に選択した製品のidを、documentの外部 key として記録
+    @document.user_id = current_user.id #docmentをcreateするuserのidを、作成者としてuser_id(FK)に記録
     respond_to do |format|
       if @document.save
         format.html { redirect_to @document, notice: "Document was successfully created." }
