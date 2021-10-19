@@ -158,3 +158,23 @@ project_status = ['活動中', '一時中止', '終了']
 #    user.project_users.create!(project_id: element.id)
 #  end
 #end
+
+###reviewとuserの中間テーブル reviewersテーブルのseedデータ作成。開発完了の製品のreviewだけseedで作る。
+#developed_product_reviews = []
+#for element in Product.where.not(status: "開発中")
+#  developed_product_reviews = developed_product_reviews + element.reviews.to_a
+#end
+#
+#for element in developed_product_reviews
+#  case element.stage
+#    when "Review 1" then
+#      user = Department.find_by(name: "開発課").member_users.sample
+#      user.reviewers.create!(review_id: element.id)
+#    when "Review 2" then
+#      user = Department.find_by(name: "製造課").member_users.sample
+#      user.reviewers.create!(review_id: element.id)
+#    when "Review 3" then
+#      user = Department.find_by(name: "営業課").member_users.sample
+#      user.reviewers.create!(review_id: element.id)
+#  end
+#end
