@@ -12,7 +12,7 @@ product_category = ['マウス', 'キーボード', 'バッテリー']
 product_status = ['開発中', '製造中', '製造中止']
 product_locations = ['未定', '東京', '深圳', 'バンコク', 'デュッセルドルフ', 'ダラス']
 document_category = ['その他文書', 'ビジネスプラン', 'マスタープラン', '製品仕様書', '設計書', '試作報告書', '量産試作報告書', '歩留り評価報告書', '作業手順書', '議事録']
-
+project_status = ['活動中', '一時中止', '終了']
 
 #7.times { |i|
 #  Department.create!(
@@ -62,10 +62,9 @@ document_category = ['その他文書', 'ビジネスプラン', 'マスター�
 #  }
 #end
 
-# documentsのseedデータ作成。Productそれぞれについて、文書を作っていく。
-
-Product.all.each { |product|
-  case product.status
+# documentsのseedデータ作成。Productそれぞれについて、文書を作っていく。下記は "製造中"と”製造中止”のみ作成。
+#Product.all.each { |product|
+#  case product.status
 #    when "製造中" then
 #      for element in document_category
 #        Document.create!(
@@ -79,18 +78,32 @@ Product.all.each { |product|
 #          }
 #        )
 #      end
-    when "製造中止" then
-      for element in document_category
-        Document.create!(
-          {
-            product_id: product.id,
-            user_id: User.all.sample.id,
-            category: element,
-            authorize: true,
-            title: "#{product.name}#{element}",
-            content: "test",
-          }
-        )
-      end
-  end
-}
+#    when "製造中止" then
+#      for element in document_category
+#        Document.create!(
+#          {
+#            product_id: product.id,
+#            user_id: User.all.sample.id,
+#            category: element,
+#            authorize: true,
+#            title: "#{product.name}#{element}",
+#            content: "test",
+#          }
+#        )
+#      end
+#  end
+#}
+
+#projectのシードデータ。productごとにprojectを作っていく。
+#for element in Product.all
+#  pj = Project.create!(
+#    product_id: element.id,
+#    name: "#{element.name}開発プロジェクト",
+#    description: "テストデータ",
+#  )
+#  if element.status == "開発中"
+#    pj.update(status: "活動中")
+#  else
+#    pj.update(status: "終了")
+#  end
+#end
