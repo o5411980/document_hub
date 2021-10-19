@@ -11,6 +11,8 @@ department_name = ["所属未定", "管理課", "企画課", "営業課", "製�
 product_category = ['マウス', 'キーボード', 'バッテリー']
 product_status = ['開発中', '製造中', '製造中止']
 product_locations = ['未定', '東京', '深圳', 'バンコク', 'デュッセルドルフ', 'ダラス']
+document_category = ['その他文書', 'ビジネスプラン', 'マスタープラン', '製品仕様書', '設計書', '試作報告書', '量産試作報告書', '歩留り評価報告書', '作業手順書', '議事録']
+
 
 #7.times { |i|
 #  Department.create!(
@@ -28,35 +30,67 @@ product_locations = ['未定', '東京', '深圳', 'バンコク', 'デュッセ
 #  )
 #}
 
-7.times { |i|
-  Product.create!(
-    {
-     category: product_category.sample,
-     description: Faker::Lorem.sentence,
-     status: product_status.sample,
-     }
-  )
-}
+#7.times { |i|
+#  Product.create!(
+#    {
+#     category: product_category.sample,
+#     description: Faker::Lorem.sentence,
+#     status: product_status.sample,
+#     }
+#  )
+#}
+#Product.all.each { |product|
+#  if product.status == '開発中'
+#    product.update!(location: product_locations[0])
+#  else
+#    product.update!(location: ['深圳', 'バンコク', 'ダラス'].sample)
+#  end
+#}
+#unless Product.where(category: 'マウス').count == 0
+#  Product.where(category: 'マウス').each { |product|
+#    product.update(name: "#{Faker::Lorem.word}マウス")
+#  }
+#end
+#unless Product.where(category: 'キーボード').count == 0
+#  Product.where(category: 'キーボード').each { |product|
+#    product.update(name: "#{Faker::Lorem.word}キーボード")
+#  }
+#end
+#unless Product.where(category: 'バッテリー').count == 0
+#  Product.where(category: 'バッテリー').each { |product|
+#    product.update(name: "#{Faker::Lorem.word}バッテリー")
+#  }
+#end
+
+# documentsのseedデータ作成。Productそれぞれについて、文書を作っていく。
+
 Product.all.each { |product|
-  if product.status == '開発中'
-    product.update!(location: product_locations[0])
-  else
-    product.update!(location: ['深圳', 'バンコク', 'ダラス'].sample)
+  case product.status
+#    when "製造中" then
+#      for element in document_category
+#        Document.create!(
+#          {
+#            product_id: product.id,
+#            user_id: User.all.sample.id,
+#            category: element,
+#            authorize: true,
+#            title: "#{product.name}#{element}",
+#            content: "test",
+#          }
+#        )
+#      end
+    when "製造中止" then
+      for element in document_category
+        Document.create!(
+          {
+            product_id: product.id,
+            user_id: User.all.sample.id,
+            category: element,
+            authorize: true,
+            title: "#{product.name}#{element}",
+            content: "test",
+          }
+        )
+      end
   end
 }
-#byebug
-unless Product.where(category: 'マウス').count == 0
-  Product.where(category: 'マウス').each { |product|
-    product.update(name: "#{Faker::Lorem.word}マウス")
-  }
-end
-unless Product.where(category: 'キーボード').count == 0
-  Product.where(category: 'キーボード').each { |product|
-    product.update(name: "#{Faker::Lorem.word}キーボード")
-  }
-end
-unless Product.where(category: 'バッテリー').count == 0
-  Product.where(category: 'バッテリー').each { |product|
-    product.update(name: "#{Faker::Lorem.word}バッテリー")
-  }
-end
