@@ -178,3 +178,27 @@ project_status = ['活動中', '一時中止', '終了']
 #      user.reviewers.create!(review_id: element.id)
 #  end
 #end
+
+###review_documentsテーブルのseedデータ。開発完了してるproductのdocumentのみ登録。
+###review別、ステージ毎に該当product_idのdocumentを登録していく。
+#developed_product_reviews = []
+#for element in Product.where.not(status: "開発中")
+#  developed_product_reviews = developed_product_reviews + element.reviews.to_a
+#end
+#
+#for element in developed_product_reviews
+#  case element.stage
+#    when "Review 1" then
+#      Document.where(product_id: element.product_id).where(category: Document.categories.keys.to_a[1..3]).each { |document|
+#        document.review_documents.create!(review_id: element.id)
+#      }
+#    when "Review 2" then
+#      Document.where(product_id: element.product_id).where(category: Document.categories.keys.to_a[4..6]).each { |document|
+#        document.review_documents.create!(review_id: element.id)
+#      }
+#    when "Review 3" then
+#      Document.where(product_id: element.product_id).where(category: Document.categories.keys.to_a[7..8]).each { |document|
+#        document.review_documents.create!(review_id: element.id)
+#      }
+#  end
+#end
