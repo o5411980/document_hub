@@ -26,8 +26,10 @@
 </p>
 
 <p>
-  <strong>担当プロジェクト:</strong>
-
+  <strong>レビュー:</strong>
+  <% @product.reviews.each do |review| %>
+    <%= link_to "#{review.stage}", review_path(review.id) %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
