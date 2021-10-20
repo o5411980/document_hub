@@ -1,26 +1,37 @@
 <p id="notice"><%= notice %></p>
 
+<h4>プロジェクト詳細</h4>
+
 <p>
-  <strong>Name:</strong>
+  <strong>プロジェクト名:</strong>
   <%= @project.name %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong>プロジェクトの状況:</strong>
   <%= @project.status %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>プロジェクトの概要:</strong>
   <%= @project.description %>
 </p>
 
 <p>
-  <strong>Members:</strong>
+  <strong>担当製品:</strong>
+  <%= link_to "#{@project.product.name}", product_path(@project.product.id) %>
+</p>
+
+
+<%= link_to '編集', edit_project_path(@project), class: "btn btn-info btn-sm" %> |
+<%= link_to 'プロジェクト一覧', projects_path, class: "btn btn-info btn-sm" %>
+
+<p>
+  <strong>プロジェクトメンバー:</strong>
   <% @project.project_users.each do |pj_user| %>
     <% pjmember = pj_user.user %>
     <span><%= "#{pjmember.name}" %><span>
-    <span>(<%= link_to "#{pjmember.name}", department_path(pjmember.member_departments[0].id) %>)</span>
+    <span>(<%= link_to "#{pjmember.member_departments[0].name}", department_path(pjmember.member_departments[0].id) %>)</span>
     <%= form_with scope: :project_user, method: :delete, url: project_user_path(pj_user), local: true do |form| %>
       <%= form.submit '削除' %>
     <% end %>
@@ -32,11 +43,19 @@
     <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: '新規メンバーを選択' %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <span class='input-group-append'>
-      <button type="submit" class="btn btn-info btn-flat">追加</button>
+      <button type="submit" class="btn btn-info btn-sm">追加</button>
     </span>
   <% end %>
 </div>
 
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<h4>担当製品のレビュー</h4>
+<p>製品名：<%= link_to "#{@project.product.name}", product_path(@project.product.id) %></p>
+<% @project.reviews.each do |review| %>
+  <p><strong><%= link_to "#{review.stage}", review_path(review.id) %><strong><p>
+  <p>判定：<%= review.judge %></p>
+  <p>レビュー開催日：<%= review.date_on %></p>
+  <p>レビュー判定者：<%= review.reviewer_users[0].name unless review.reviewer_users.count == 0 %>（
+    <%= review.reviewer_users[0].member_departments[0].name unless review.reviewer_users[0].member_departments.count == 0 %>
+    ）
+  </p>
+<% end %>

@@ -1,47 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>対象の製品:</strong>
-  <%= @review.product.name %>
-</p>
+<h4>レビュー詳細</h4>
+<%= link_to '編集', edit_review_path(@review), class: "btn btn-info btn-sm" %> |
+<%= link_to 'レビュー一覧', reviews_path, class: "btn btn-info btn-sm" %>
 
 <p>
-  <strong>担当プロジェクト:</strong>
-  <%= @review.project.name %>
-</p>
-
-<p>
-  <strong>Requester:</strong>
-  <%= User.find(@review.requester).name %>
-</p>
-
-<p>
-  <strong>Stage:</strong>
+  <strong>レビューの段階:</strong>
   <%= @review.stage %>
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @review.description %>
+  <strong>対象の製品:</strong>
+  <%= link_to "#{@review.product.name}", product_path(@review.product.id) %>
 </p>
 
 <p>
-  <strong>Former review:</strong>
+  <strong>担当プロジェクト:</strong>
+  <%= link_to "#{@review.project.name}", product_path(@review.project.id) %>
+</p>
+
+<p>
+  <strong>前段階のレビュー:</strong>
   <%= @review.former_review %>
 </p>
 
 <p>
-  <strong>Date on:</strong>
+  <strong>主催者:</strong>
+  <%= User.find(@review.requester).name %>
+</p>
+
+<p>
+  <strong>レビュー開催日:</strong>
   <%= @review.date_on %>
 </p>
 
 <p>
-  <strong>Deadline:</strong>
+  <strong>期限:</strong>
   <%= @review.deadline %>
 </p>
 
 <p>
-  <strong>Reviewer:</strong>
+  <strong>概要:</strong>
+  <%= @review.description %>
+</p>
+
+<p>
+  <strong>レビュー担当者:</strong>
   <% @review.reviewers.each do |reviewer| %>
     <% user = reviewer.user%>
     <span><%= "#{user.name}" %><span>
@@ -57,13 +61,23 @@
     <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: 'レビュー担当者を選択' %>
     <%= form.hidden_field :review_id, value: @review.id %>
     <span class='input-group-append'>
-      <button type="submit" class="btn btn-info btn-flat">追加</button>
+      <button type="submit" class="btn btn-info btn-sm">追加</button>
     </span>
   <% end %>
 </div>
 
 <p>
-  <strong>審査対象の技術文書:</strong>
+  <strong>判定:</strong>
+  <%= @review.judge %>
+</p>
+
+<p>
+  <strong>レビューコメント:</strong>
+  <%= @review.comment %>
+</p>
+
+<h4>審査対象の技術文書:</h4>
+<p>
   <% @review.review_documents.each do |review_document| %>
     <% document = review_document.document %>
     <span><%= "#{document.title}" %><span>
@@ -79,20 +93,7 @@
     <%= form.select :document_id, options_for_select(@documents.map{|d| [d.title, d.id]}), prompt: 'レビュー対象を選択' %>
     <%= form.hidden_field :review_id, value: @review.id %>
     <span class='input-group-append'>
-      <button type="submit" class="btn btn-info btn-flat">追加</button>
+      <button type="submit" class="btn btn-info btn-sm">追加</button>
     </span>
   <% end %>
 </div>
-
-<p>
-  <strong>Judge:</strong>
-  <%= @review.judge %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @review.comment %>
-</p>
-
-<%= link_to 'Edit', edit_review_path(@review) %> |
-<%= link_to 'Back', reviews_path %>

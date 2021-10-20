@@ -21,6 +21,13 @@
     <%= form.select :location, Department.locations.keys.to_a, {include_blank: '選択なし'} %>
   </div>
 
+  <% unless @department.id == nil %>
+    <div class="field">
+      <%= form.label :leader, "Department_leader" %>
+      <%= form.select :leader, @department.member_users.map{|u| [u.name, u.id]}, {include_blank: 'メンバーから選択'} %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>

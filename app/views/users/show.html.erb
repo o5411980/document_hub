@@ -1,18 +1,35 @@
-<h1>Mypage</h1>
+<h4>ユーザー情報詳細</h4>
 
-<h3>ユーザー名</h3>
-<%= @user.name %>
-<h3>メールアドレス</h3>
-<%= @user.email %>
-<h3>コメント</h3>
-<%= @user.comment %>
-<h3>管理者権限</h3>
-<%= @user.admin %>
-<h3>社員番号</h3>
-<%= @user.employee_number %>
-<h3>所属部署</h3>
-<%= @user.member_departments[0][:name] unless @user.member_departments.count==0 %>
+<strong>ユーザー名：</strong>
+<p><%= @user.name %> <%= "(#{@user.mr_ms})" unless @user.mr_ms == nil %></p>
+<strong>メールアドレス：</strong>
+<p><%= @user.email %></p>
+<strong>管理者権限：</strong>
+<p><%= @user.admin %></p>
+<strong>社員番号：</strong>
+<p><%= @user.employee_number %></p>
+<strong>所属部署：</strong>
+<p><%= @user.member_departments[0][:name] unless @user.member_departments.count==0 %></p>
+<strong>コメント：</strong>
+<p><%= @user.comment %></p>
+<strong>参加プロジェクト：</strong>
+<% @user.project_user_projects.each do |project| %>
+  <p><%= link_to "#{project.name}", project_path(project.id) %></p>
+<% end %>
+<br>
+<strong>判定担当のレビュー：</strong>
+<% @user.reviewer_reviews.each do |review| %>
+  <p><%= link_to "#{review.product.name}_#{review.stage}", review_path(review.id) %></p>
+<% end %>
 <br>
 <br>
-<%= link_to 'プロフィールを編集', edit_user_registration_path %><br>
-<%= link_to '管理者画面', rails_admin_path if current_user.admin == true %>
+<%= link_to '編集', edit_user_registration_path, class: "btn btn-warning btn-sm" %>
+<%= link_to '管理者画面', rails_admin_path, class: "btn btn-warning btn-sm" if current_user.admin == true %>
+
+<h4>作成したドキュメント</h4>
+<% @user.documents.each do |document| %>
+  <p><strong><%= link_to "#{document.title}", document_path(document.id) %></strong></p>
+  <p>作成日：<%= document.created_at.strftime("%F") %></p>
+  <p>承認/未承認：<%= document.authorize %></p>
+  <p>コメント：<%= document.content %></p>
+<% end %>
