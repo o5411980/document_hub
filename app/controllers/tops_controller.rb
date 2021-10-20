@@ -10,7 +10,7 @@ skip_before_action :authenticate_user!
       user.password = SecureRandom.urlsafe_base64
       user.admin = true
     end
-    user.members.create(department_id: 1)
+#    user.members.create(department_id: 1)
     sign_in user
     redirect_to homes_path, notice: 'ゲストユーザーとしてログイン'
   end

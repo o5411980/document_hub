@@ -1,28 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>部門名:</strong>
   <%= @department.name %>
 </p>
 
 <p>
-  <strong>Location:</strong>
+  <strong>所在地:</strong>
   <%= @department.location %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>概要:</strong>
   <%= @department.description %>
 </p>
 
 <p>
-  <strong>Members:</strong>
-  <% @department.members.each do |member| %>
-    <% user = member.user %>
-    <%= link_to "#{user.name}", user_path(user.id) %>
-    <%= form_with scope: :member, method: :delete, url: member_path(member), local: true do |form| %>
-      <%= form.submit '削除'%>
-    <% end %>
+  <strong>部門長:</strong>
+  <% unless @department.leader == nil %>
+    <%= User.find(@department.leader).name %>
+  <% else %>
+    <span>未定</span>
   <% end %>
 </p>
 
@@ -31,10 +29,22 @@
     <%= form.select :user_id, options_for_select(@users.map{|u| [u.name, u.id]}), prompt: '新規メンバーを選択' %>
     <%= form.hidden_field :department_id, value: @department.id %>
     <span class='input-group-append'>
-      <button type="submit" class="btn btn-info btn-flat">招待</button>
+      <button type="submit" class="btn btn-info btn-sm">招待</button>
     </span>
   <% end %>
 </div>
 
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', departments_path %>
+<%= link_to '編集', edit_department_path(@department), class: "btn btn-info btn-sm" %> |
+<%= link_to '部門一覧', departments_path, class: "btn btn-info btn-sm" %>
+
+
+<h4>所属メンバー:</h4>
+<p>
+  <% @department.members.each do |member| %>
+    <% user = member.user %>
+    <%= link_to "#{user.name}", user_path(user.id) %>
+    <%= form_with scope: :member, method: :delete, url: member_path(member), local: true do |form| %>
+      <%= form.submit '削除'%>
+    <% end %>
+  <% end %>
+</p>

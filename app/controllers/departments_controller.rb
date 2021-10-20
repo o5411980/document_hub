@@ -67,6 +67,6 @@ class DepartmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def department_params
-      params.require(:department).permit(:name, :location, :description)
+      params.require(:department).permit(:name, :location, :description, :leader)
     end
 end
