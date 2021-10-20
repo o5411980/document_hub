@@ -11,7 +11,7 @@
 <h3>社員番号</h3>
 <%= @user.employee_number %>
 <h3>所属部署</h3>
-<%= @user.member_departments[0][:name] %>
+<%= @user.member_departments[0][:name] unless @user.member_departments.count==0 %>
 <br>
 <br>
 <%= link_to 'プロフィールを編集', edit_user_registration_path %><br>
