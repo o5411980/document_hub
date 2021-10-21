@@ -3,15 +3,44 @@
 <p>要ログイン、ログイン後のファーストビュー</p>
 
 
+
+
 <div class="container mt-5">
   <div class="row">
+    <strong class="sidebar">
+      管理者メッセージ
+    </strong>
     <div class="col-3 sidebar">
-      <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
-        管理者メッセージ投稿
+      <button type="button" class="btn btn-warning w-150" data-toggle="modal" data-target="#exampleModal">
+        メッセージ編集
       </button>
     </div>
-    <div class="col-9 sidebar recipes">
+    <div class="col-12 sidebar recipes">
       <%= render 'adminmsg', users: @users %>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <strong>レビュー進捗一覧</strong>
+    <div class="col-12 sidebar recipes">
+      <div class="card mb-1">
+        <div class="card-body">
+          <% Product.where.not(status: "製造中止").each do |product| %>
+            <% reviews = product.reviews.order(created_at: :desc).limit(2) %>
+            <p>
+              <% unless reviews.count == 0 %>
+                  <strong><%= link_to "#{product.name}", product_path(product.id) %></strong>,
+                <% reviews.each do |review| %>
+                  <%= link_to "#{review.stage}", review_path(review.id) %>
+                  <%= "#{review.judge}" %> @ <%= "#{review.date_on.strftime("%Y年%m月%d日")}" unless review.date_on == nil %>,
+                <% end %>
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
