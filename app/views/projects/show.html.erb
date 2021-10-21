@@ -54,8 +54,10 @@
   <p><strong><%= link_to "#{review.stage}", review_path(review.id) %><strong><p>
   <p>判定：<%= review.judge %></p>
   <p>レビュー開催日：<%= review.date_on %></p>
-  <p>レビュー判定者：<%= review.reviewer_users[0].name unless review.reviewer_users.count == 0 %>（
-    <%= review.reviewer_users[0].member_departments[0].name unless review.reviewer_users[0].member_departments.count == 0 %>
-    ）
-  </p>
+  <% unless review.reviewer_users.count == 0%>
+    <p>レビュー判定者：<%= review.reviewer_users[0].name unless review.reviewer_users.count == 0 %>（
+      <%= review.reviewer_users[0].member_departments[0].name unless review.reviewer_users[0].member_departments.count == 0 %>
+      ）
+    </p>
+  <% end %>
 <% end %>
