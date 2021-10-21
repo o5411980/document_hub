@@ -49,7 +49,7 @@
   <% @review.reviewers.each do |reviewer| %>
     <% user = reviewer.user%>
     <span><%= "#{user.name}" %><span>
-    <span>(<%= link_to "#{user.name}", department_path(user.member_departments[0].id) %>)</span>
+    <span>(<%= link_to "#{user.member_departments[0].name}", department_path(user.member_departments[0].id) %>)</span>
     <%= form_with scope: :reviewer, method: :delete, url: reviewer_path(reviewer), local: true do |form| %>
       <%= form.submit '削除' %>
     <% end %>

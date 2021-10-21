@@ -56,12 +56,25 @@
               <div class="card-body">
                 <div class="card-text">
                     <%= link_to "#{project.name}", project_path(project.id) %>,
-                    <%= link_to "#{review[0].stage}", review_path(review[0].id) %> @ <%= "#{review[0].date_on.strftime("%Y年%m月%d日")}" unless review[0].date_on == nil %>
+                    <%= link_to "#{review[0].stage}", review_path(review[0].id) %> (プロジェクトメンバー) @ <%= "#{review[0].date_on.strftime("%Y年%m月%d日")}" unless review[0].date_on == nil %>
                 </div>
               </div>
             </div>
           <% end %>
       <% end %>
+    </div>
+    <div class="col-12 sidebar recipes">
+      <% reviews = current_user.reviewer_reviews.where(judge: "未承認") %>
+        <% reviews.each do |review| %>
+          <div class="card mb-1">
+            <div class="card-body">
+              <div class="card-text">
+                <%= link_to "#{review.project.name}", project_path(review.project.id) %>,
+                <%= link_to "#{review.stage}", review_path(review.id) %> (レビュー判定者) @ <%= "#{review.date_on.strftime("%Y年%m月%d日")}" unless review.date_on == nil %>
+              </div>
+            </div>
+          </div>
+        <% end %>
     </div>
   </div>
 </div>
