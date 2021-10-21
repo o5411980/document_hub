@@ -9,3 +9,34 @@
 div .navbar-link a  {
   color: #fff;
 }
+
+.container-index {
+  padding-top: 1%;
+  padding-left: 4%;
+  border-top: 1px solid #ccc;
+}
+
+footer {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  color: #797979;
+  font-size: 0.9rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+}
+
+.btn-padding-bottom {
+  padding-bottom: 1%;
+}
+
+.btn-padding-top {
+  padding-top: 1%;
+}
+
+h4 {
+  padding-left: 4%;
+}

@@ -1,61 +1,68 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<h4>製品一覧</h4>
+<div class="container-index">
 
-<%= search_form_for @q do |f| %>
-  <%= f.label :name, "製品名" %>
-  <%= f.search_field :name_cont %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name, "製品名" %>
+    <%= f.search_field :name_cont %>
 
-  <%= f.label :category, "製品カテゴリー" %>
-  <%= f.select :category_eq, Product.categories.to_a, {include_blank: '選択なし'} %>
+    <%= f.label :category, "製品カテゴリー" %>
+    <%= f.select :category_eq, Product.categories.to_a, {include_blank: '選択なし'} %>
 
-  <%= f.label :status, "ステータス" %>
-  <%= f.select :status_eq, Product.statuses.to_a, {include_blank: '選択なし'} %>
+    <%= f.label :status, "ステータス" %>
+    <%= f.select :status_eq, Product.statuses.to_a, {include_blank: '選択なし'} %>
 
-  <%= f.label :location, "製造拠点" %>
-  <%= f.select :location_eq, Product.locations.to_a, {include_blank: '選択なし'} %>
+    <%= f.label :location, "製造拠点" %>
+    <%= f.select :location_eq, Product.locations.to_a, {include_blank: '選択なし'} %>
 
-  <%= f.submit "検索" %>
-<% end %>
-
-<% if params[:q].present? %>
-  <% if params[:q][:location_eq].present? %>
-    <%= link_to 'ISO文書', documents_path("q"=>{"title_cont"=>"", "product_id_eq"=>"", "product_status_eq"=>"1", "product_location_eq"=>params[:q][:location_eq], "category_eq_any"=>["", "", "", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", ""]}), class: 'btn btn-success'  %>
-  <% else %>
-    <%= link_to 'ISO文書', products_path, class: 'btn btn-success', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
+    <%= f.submit "検索", class: "btn btn-warning btn-sm " %>
   <% end %>
-<% else %>
-  <%= link_to 'ISO文書', products_path, class: 'btn btn-success', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
-<% end %>
 
-<table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="btn-padding-top">
+    <span>
+      <%= link_to '新規作成', new_product_path, class: "btn btn-warning btn-sm" %>
+    </span>
+    <span>
+      <% if params[:q].present? %>
+        <% if params[:q][:location_eq].present? %>
+          <%= link_to 'ISO文書', documents_path("q"=>{"title_cont"=>"", "product_id_eq"=>"", "product_status_eq"=>"1", "product_location_eq"=>params[:q][:location_eq], "category_eq_any"=>["", "", "", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", ""]}), class: 'btn btn-success btn-sm btn-padding-top'  %>
+        <% else %>
+          <%= link_to 'ISO文書', products_path, class: 'btn btn-success btn-sm btn-padding-top', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
+        <% end %>
+      <% else %>
+        <%= link_to 'ISO文書', products_path, class: 'btn btn-success btn-sm btn-padding-top', data: { confirm: 'ISO文書の取得は、製造拠点を指定して検索したあとに有効になります。' } %>
+      <% end %>
+    </span>
+  </div>
 
-  <tbody>
-    <% @products.each do |product| %>
+  <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
+    <thead>
       <tr>
-        <td><%= product.name %></td>
-        <td><%= product.category %></td>
-        <td><%= product.description %></td>
-        <td><%= product.status %></td>
-        <td><%= product.location %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>製品名</th>
+        <th>製品タイプ</th>
+        <th>現況</th>
+        <th>製造場所</th>
+        <th>担当プロジェクト</th>
+        <th>開発完了時期</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.category %></td>
+          <td><%= product.status %></td>
+          <td><%= product.location %></td>
+          <td><%= link_to "#{product.projects[0].name}", review_path(product.projects[0].id) unless product.projects.count == 0 %></td>
+          <td><%= product.reviews.where(stage: "Review 3", judge: true).first.updated_at.strftime("%Y年%m月%d日") unless product.reviews.where(stage: "Review 3", judge: true).count == 0 %></td>
+          <td><%= link_to '詳細', product %></td>
+          <td><%= link_to '編集', edit_product_path(product) %></td>
+          <td><%= link_to '削除', product, method: :delete, data: { confirm: '本当に削除しますか?' } if current_user.admin == true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
