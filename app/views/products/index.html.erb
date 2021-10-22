@@ -16,7 +16,7 @@
     <%= f.label :location, "製造拠点" %>
     <%= f.select :location_eq, Product.locations.to_a, {include_blank: '選択なし'} %>
 
-    <%= f.submit "検索", class: "btn btn-warning btn-sm " %>
+    <%= f.submit "検索" %>
   <% end %>
 
   <div class="btn-padding-top">

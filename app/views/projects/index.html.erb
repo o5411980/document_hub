@@ -1,41 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Projects</h1>
+<h4>プロジェクト一覧</h4>
+<div class="container-index">
 
-<%= search_form_for @q do |f| %>
-  <%= f.label :name, "text in project name" %>
-  <%= f.search_field :name_cont %>
+  <%= link_to '新規作成', new_project_path, class: "btn btn-warning btn-sm" %>
 
-  <%= f.label :status, "Status" %>
-  <%= f.select :status_eq, Project.statuses.to_a, {include_blank: '選択なし'} %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name, "プロジェクト名" %>
+    <%= f.search_field :name_cont %>
 
-  <%= f.submit "検索" %>
-<% end %>
+    <%= f.label :status, "現況" %>
+    <%= f.select :status_eq, Project.statuses.to_a, {include_blank: '選択なし'} %>
 
-<table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;' >
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <%= f.submit "検索" %>
+  <% end %>
 
-  <tbody>
-    <% @projects.each do |project| %>
+  <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;' >
+    <thead>
       <tr>
-        <td><%= project.name %></td>
-        <td><%= project.status %></td>
-        <td><%= project.description %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>プロジェクト名</th>
+        <th>担当製品名<th>
+        <th>現況</th>
+        <th>作成日</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= link_to "#{project.product.name}", product_path(project.product.id) %></td>
+          <td colspan="1"></td>
+          <td><%= project.status %></td>
+          <td><%= project.created_at.strftime("%Y年%m月%d日") %></td>
+          <td><%= link_to '詳細', project %></td>
+          <td><%= link_to '編集', edit_project_path(project) %></td>
+          <td><%= link_to '削除', project, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin == true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Project', new_project_path %>
+</div>
