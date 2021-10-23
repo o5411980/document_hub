@@ -9,9 +9,11 @@
       管理者メッセージ
     </strong>
     <div class="col-3 sidebar">
-      <button type="button" class="btn btn-warning w-150" data-toggle="modal" data-target="#exampleModal">
-        メッセージ編集
-      </button>
+      <% if current_user.admin == true %>
+        <button type="button" class="btn btn-warning w-150" data-toggle="modal" data-target="#exampleModal">
+          メッセージ編集
+        </button>
+      <% end %>
     </div>
     <div class="col-12 sidebar recipes">
       <%= render 'adminmsg', users: @users %>
@@ -21,8 +23,8 @@
 
 <div class="container mt-5">
   <div class="row">
-    <strong>レビュー進捗一覧</strong>
-    <div class="col-12 sidebar recipes">
+    <strong>レビュー進捗一覧 (開発中、製造中の製品のレビューを表示)</strong>
+    <div class="col-12 sidebar">
       <div class="card mb-1">
         <div class="card-body">
           <% Product.where.not(status: "製造中止").each do |product| %>
@@ -48,7 +50,7 @@
     <strong class="sidebar">
       担当プロジェクト一覧
     </strong>
-    <div class="col-12 sidebar recipes">
+    <div class="col-12 sidebar">
       <% current_user.project_user_projects.each do |project| %>
         <% review = project.reviews.where(judge: "未承認") %>
           <% unless review.count == 0 %>
@@ -63,7 +65,7 @@
           <% end %>
       <% end %>
     </div>
-    <div class="col-12 sidebar recipes">
+    <div class="col-12 sidebar">
       <% reviews = current_user.reviewer_reviews.where(judge: "未承認") %>
         <% reviews.each do |review| %>
           <div class="card mb-1">
