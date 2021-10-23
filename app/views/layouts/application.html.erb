@@ -12,7 +12,7 @@
   <body>
     <div class="app-title navbar navbar-expand-md navbar-dark bg-dark">
       <div class="navbar-brand">
-        LOGO
+        <%= link_to "LOGO", homes_path, class: "logo" %>
       </div>
       <div class="navbar-link">
         <% if user_signed_in? %>
