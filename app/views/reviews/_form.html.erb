@@ -1,66 +1,67 @@
-<%= form_with(model: review, local: true) do |form| %>
-  <% if review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+<div class="container-index">
 
-      <ul>
-      <% review.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_with(model: review, local: true) do |form| %>
+    <% if review.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+        <ul>
+        <% review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= form.label :product_id, "対象製品" %>
+      <%= form.select :product_id, Product.all.map{|product| [product[:name], product[:id]]}, {include_blank: '必ず選択'}  %>
+    </div>
+
+    <div class="field">
+      <%= form.label :project_id, "担当プロジェクト" %>
+      <%= form.select :project_id, Project.all.map{|project| [project[:name], project[:id]]}, {include_blank: '必ず選択'}  %>
+    </div>
+
+    <div class="field">
+      <%= form.label :requester, "主催者" %>
+      <%= form.select :requester, [["#{current_user.name}", current_user.id]] %>
+    </div>
+
+    <div class="field">
+      <%= form.label :stage, "Review 1/2/3" %>
+      <%= form.select :stage, Review.stages.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description, "概要" %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :date_on, "開催日" %>
+      <%= form.datetime_select :date_on %>
+    </div>
+
+    <div class="field">
+      <%= form.label :deadline, "期限" %>
+      <%= form.datetime_select :deadline %>
+    </div>
+
+    <% if (@review.reviewers.count != 0) && (current_user.id == @review.reviewers[0].user_id) %>
+      <div class="field">
+        <%= form.label :judge, "レビュー判定" %>
+        <%= form.select :judge, Review.judges.keys.to_a %>
+      </div>
+
+      <div class="field">
+        <%= form.label :comment, "レビューコメント" %>
+        <%= form.text_area :comment %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.label :product_id %>
-    <%= form.select :product_id, Product.all.map{|product| [product[:name], product[:id]]}, {include_blank: '必ず選択'}  %>
-  </div>
-
-  <div class="field">
-    <%= form.label :project_id %>
-    <%= form.select :project_id, Project.all.map{|project| [project[:name], project[:id]]}, {include_blank: '必ず選択'}  %>
-  </div>
-
-  <div class="field">
-    <%= form.label :requester %>
-    <%= form.select :requester, [["#{current_user.name}", current_user.id]] %>
-  </div>
-
-  <div class="field">
-    <%= form.label :stage, "Stage" %>
-    <%= form.select :stage, Review.stages.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :former_review %>
-    <%= form.number_field :former_review %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date_on %>
-    <%= form.datetime_select :date_on %>
-  </div>
-
-  <div class="field">
-    <%= form.label :deadline %>
-    <%= form.datetime_select :deadline %>
-  </div>
-
-  <div class="field">
-    <%= form.label :judge %>
-    <%= form.select :judge, Review.judges.keys.to_a %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comment %>
-    <%= form.text_area :comment %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= link_to 'レビュー一覧', reviews_path, class: "btn btn-warning btn-sm" %>
+</div>
