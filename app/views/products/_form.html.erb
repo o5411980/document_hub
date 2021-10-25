@@ -1,42 +1,47 @@
-<%= form_with(model: product, local: true) do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<div class="container-index">
 
-      <ul>
-      <% product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_with(model: product, local: true) do |form| %>
+    <% if product.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+        <ul>
+        <% product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name, "製品名称" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :category, "製品タイプ"  %>
+      <%= form.select :category, Product.categories.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description, "製品概要"  %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :status, "現況"  %>
+      <%= form.select :status, Product.statuses.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :location, "製品場所"  %>
+      <%= form.select :location, Product.locations.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :category %>
-    <%= form.select :category, Product.categories.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Product.statuses.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.select :location, Product.locations.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  <%= link_to '製品一覧', products_path, class: "btn btn-warning btn-sm" %>
+</div>
