@@ -3,6 +3,12 @@ class ReviewsController < ApplicationController
 
   # GET /reviews or /reviews.json
   def index
+    products = Product.all
+    @product_choice = []
+    products.each do |product|
+      @product_choice << [product.name, product.id]
+    end
+
     @q = Review.ransack(params[:q])
     @reviews = @q.result(distinct: true)
   end

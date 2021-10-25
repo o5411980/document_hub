@@ -9,7 +9,7 @@
 <strong>社員番号：</strong>
 <p><%= @user.employee_number %></p>
 <strong>所属部署：</strong>
-<p><%= @user.member_departments[0][:name] unless @user.member_departments.count==0 %></p>
+<p><%= link_to "#{@user.member_departments[0][:name]}", department_path(@user.member_departments[0].id) unless @user.member_departments.count==0 %></p>
 <strong>コメント：</strong>
 <p><%= @user.comment %></p>
 <strong>参加プロジェクト：</strong>

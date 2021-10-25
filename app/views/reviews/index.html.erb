@@ -1,51 +1,52 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Reviews</h1>
+<h4>レビュー一覧</h4>
+<div class="container-index">
 
-<%= search_form_for @q do |f| %>
-  <%= f.label :stage, "Stage" %>
-  <%= f.select :stage_eq, Review.stages.to_a, {include_blank: '選択なし'} %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :product_id, "対象製品" %>
+    <%= f.select :product_id_eq, @product_choice, {include_blank: '選択なし'} %>
 
-  <%= f.label :judge, "Judge" %>
-  <%= f.select :judge_eq, Review.judges.to_a, {include_blank: '選択なし'} %>
+    <%= f.label :product_status, "製品の現況" %>
+    <%= f.select :product_status_eq, Product.statuses, {include_blank: '選択なし'} %>
 
-  <%= f.submit "検索" %>
-<% end %>
+    <%= f.label :stage, "DR1/2/3" %>
+    <%= f.select :stage_eq, Review.stages.to_a, {include_blank: '選択なし'} %>
 
-<table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;' >
-  <thead>
-    <tr>
-      <th>Requester</th>
-      <th>Stage</th>
-      <th>Description</th>
-      <th>Former review</th>
-      <th>Date on</th>
-      <th>Deadline</th>
-      <th>Judge</th>
-      <th>Comment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <%= f.label :judge, "判定" %>
+    <%= f.select :judge_eq, Review.judges.to_a, {include_blank: '選択なし'} %>
 
-  <tbody>
-    <% @reviews.each do |review| %>
+    <%= f.submit "検索" %>
+  <% end %>
+  <%= link_to '新規登録', new_review_path, class: "btn btn-warning btn-sm" %>
+  <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;' >
+    <thead>
       <tr>
-        <td><%= review.requester %></td>
-        <td><%= review.stage %></td>
-        <td><%= review.description %></td>
-        <td><%= review.former_review %></td>
-        <td><%= review.date_on %></td>
-        <td><%= review.deadline %></td>
-        <td><%= review.judge %></td>
-        <td><%= review.comment %></td>
-        <td><%= link_to 'Show', review %></td>
-        <td><%= link_to 'Edit', edit_review_path(review) %></td>
-        <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>対象製品</th>
+        <th>製品の現況</th>
+        <th>DR1/2/3</th>
+        <th>開催日</th>
+        <th>期限</th>
+        <th>判定</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= link_to "#{review.product.name}", product_path(review.product.id) %></td>
+          <td><%= review.product.status %></td>
+          <td><%= review.description %></td>
+          <td><%= review.date_on.strftime("%Y年%m月%d日") unless review.date_on == nil %></td>
+          <td><%= review.deadline.strftime("%Y年%m月%d日") unless review.deadline == nil %></td>
+          <td><%= review.judge %></td>
+          <td><%= link_to '詳細', review %></td>
+          <td><%= link_to '編集', edit_review_path(review) %></td>
+          <td><%= link_to '削除', review, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin == true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Review', new_review_path %>
+</div>
