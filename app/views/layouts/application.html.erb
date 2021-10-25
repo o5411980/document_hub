@@ -12,19 +12,25 @@
   <body>
     <div class="app-title navbar navbar-expand-md navbar-dark bg-dark">
       <div class="navbar-brand">
-        <%= link_to "LOGO", homes_path, class: "logo" %>
+        <% if user_signed_in? %>
+          <%= link_to "LOGO", homes_path, class: "logo" %>
+        <% else %>
+          <%= link_to "LOGO", root_path, class: "logo" %>
+        <% end %>
       </div>
       <div class="navbar-link">
         <% if user_signed_in? %>
-          <%= link_to "プロジェクト一覧", projects_path, class: 'btn btn-secondary' %>
-          <%= link_to "製品一覧", products_path, class: 'btn btn-secondary' %>
-          <%= link_to "文書一覧", documents_path, class: 'btn btn-secondary' %>
-          <%= link_to "プロフィール", user_path(current_user.id), class: 'btn btn-secondary' %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-secondary' %>
+          <%= link_to "部署一覧", departments_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "プロジェクト一覧", projects_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "DR一覧", reviews_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "製品一覧", products_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "文書一覧", documents_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "プロフィール", user_path(current_user.id), class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-secondary btn-sm' %>
         <% else %>
-          <%= link_to 'ゲストログイン', tops_guest_sign_in_path, method: :post, class: 'btn btn-secondary' %>
-          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-secondary' %>
-          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-secondary' %>
+          <%= link_to 'ゲストログイン', tops_guest_sign_in_path, method: :post, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-secondary btn-sm' %>
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-secondary btn-sm' %>
         <% end %>
       </div>
     </div>
