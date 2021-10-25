@@ -1,32 +1,41 @@
-<%= form_with(model: project, local: true) do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<div class="container-index">
 
-      <ul>
-      <% project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_with(model: project, local: true) do |form| %>
+    <% if project.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+        <ul>
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name, "プロジェクト名" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description, "概要" %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :status, "現況" %>
+      <%= form.select :status, Project.statuses.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :product_id, "担当製品" %>
+      <%= form.select :product_id, Product.all.map{|p| [p.name, p.id]} %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status, "Status" %>
-    <%= form.select :status, Project.statuses.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  <%= link_to 'プロジェクト一覧', projects_path, class: "btn btn-warning btn-sm" %>
+</div>
