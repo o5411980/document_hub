@@ -1,39 +1,43 @@
-<%= form_with(model: department, local: true) do |form| %>
-  <% if department.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
+<div class="container-index">
 
-      <ul>
-      <% department.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_with(model: department, local: true) do |form| %>
+    <% if department.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(department.errors.count, "error") %> prohibited this department from being saved:</h2>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+        <ul>
+        <% department.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= form.label :location, "Location" %>
-    <%= form.select :location, Department.locations.keys.to_a, {include_blank: '選択なし'} %>
-  </div>
-
-  <% unless @department.id == nil %>
     <div class="field">
-      <%= form.label :leader, "Department_leader" %>
-      <%= form.select :leader, @department.member_users.map{|u| [u.name, u.id]}, {include_blank: 'メンバーから選択'} %>
+      <%= form.label :name, "部署の名称" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :location, "所在地" %>
+      <%= form.select :location, Department.locations.keys.to_a, {include_blank: '選択なし'} %>
+    </div>
+
+    <% unless @department.id == nil %>
+      <div class="field">
+        <%= form.label :leader, "リーダー" %>
+        <%= form.select :leader, @department.member_users.map{|u| [u.name, u.id]}, {include_blank: 'メンバーから選択'} %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :description, "部署の概要"  %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  <%= link_to '部署一覧', departments_path, class: "btn btn-warning btn-sm" %>
+</div>
