@@ -1,3 +1,12 @@
-// Place all the styles related to the departments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#container-department {
+  display: flex;
+}
+
+#department-main {
+  flex: 0 0 540px;
+}
+
+#department-aside {
+  flex: auto;
+  min-width: 100px
+}
