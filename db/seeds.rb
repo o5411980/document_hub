@@ -74,6 +74,7 @@ project_status = ['活動中', '一時中止', '終了']
 #            authorize: true,
 #            title: "#{product.name}#{element}",
 #            content: "test",
+#            filepath: app/assets/images/test.pdf #プロジェクトパスでpdfを指定。動作未確認。
 #          }
 #        )
 #      end
@@ -87,6 +88,7 @@ project_status = ['活動中', '一時中止', '終了']
 #            authorize: true,
 #            title: "#{product.name}#{element}",
 #            content: "test",
+#            filepath: app/assets/images/test.pdf #プロジェクトパスでpdfを指定。動作未確認。
 #          }
 #        )
 #      end
