@@ -50,6 +50,15 @@ a.logo {
   color: #fff;
 }
 
-.aside-right {
-  
+.container-show {
+  display: flex;
+}
+
+.department-main {
+  flex: 0 0 540px;
+}
+
+.department-aside {
+  flex: auto;
+  min-width: 100px
 }

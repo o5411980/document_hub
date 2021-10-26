@@ -2,9 +2,9 @@
 
 <h4>部門詳細:</h4>
 <div class="container-index">
-  <div id="container-department">
+  <div class="container-show">
 
-    <main id="department-main">
+    <main class="department-main">
       <p>
         <strong>部門名:</strong>
         <%= @department.name %>
@@ -33,9 +33,9 @@
       <%= link_to '部門一覧', departments_path, class: "btn btn-warning btn-sm" %>
     </main>
 
-    <aside id="department-aside">
+    <aside class="department-aside">
 
-    <strong>所属メンバー:</strong>
+      <strong>所属メンバー:</strong>
       <p>
         <% @department.members.each do |member| %>
           <% user = member.user %>
