@@ -1,48 +1,56 @@
 <h4>文書詳細</h4>
 
-<p>
-  <strong>対象製品:</strong>
-  <%= link_to "#{@document.product.name}", product_path(@document.product.id) %>
-</p>
+<div class="container-index">
+  <div class="container-show">
 
-<p>
-  <strong>文書タイプ:</strong>
-  <%= @document.category %>
-</p>
+    <main class="department-main">
+      <p>
+        <strong>対象製品:</strong>
+        <%= link_to "#{@document.product.name}", product_path(@document.product.id) %>
+      </p>
 
-<p>
-  <strong>作成者:</strong>
-  <%= @document.user.name %>
-</p>
+      <p>
+        <strong>文書タイプ:</strong>
+        <%= @document.category %>
+      </p>
 
-<p>
-  <strong>作成日:</strong>
-  <%= @document.created_at.strftime("%F") %>
-</p>
+      <p>
+        <strong>作成者:</strong>
+        <%= @document.user.name %>
+      </p>
 
-<p>
-  <strong>承認/未承認:</strong>
-  <%= @document.authorize %>
-</p>
+      <p>
+        <strong>作成日:</strong>
+        <%= @document.created_at.strftime("%F") %>
+      </p>
 
-<p>
-  <strong>タイトル:</strong>
-  <%= @document.title %>
-  <%= link_to '(pdf)', @document.filepath.url %>
-</p>
+      <p>
+        <strong>承認/未承認:</strong>
+        <%= @document.authorize %>
+      </p>
 
-<p>
-  <strong>コンテンツ:</strong>
-  <%= @document.content %>
-</p>
+      <p>
+        <strong>タイトル:</strong>
+        <%= @document.title %>
+        <%= link_to '(pdf)', @document.filepath.url %>
+      </p>
 
-<%= link_to '編集', edit_document_path(@document), class: "btn btn-warning btn-sm" %> |
-<%= link_to '文書一覧', documents_path, class: "btn btn-warning btn-sm" %>
+      <p>
+        <strong>コンテンツ:</strong>
+        <%= @document.content %>
+      </p>
 
-<p>
-  <strong>製品名：<%= @document.product.name %>の<%= @document.category %>一覧</strong>
-  <% Document.where(product_id: @document.product.id).where(category: @document.category).each do |document| %>
-    <p>タイトル：<%= link_to "#{document.title}", document_path(document.id) %></p>
-    <p>作成日：<%= document.created_at.strftime("%F") %></p>
-  <% end %>
-</p>
+      <%= link_to '編集', edit_document_path(@document), class: "btn btn-warning btn-sm" %> |
+      <%= link_to '文書一覧', documents_path, class: "btn btn-warning btn-sm" %>
+    </main>
+
+    <aside class="department-aside">
+
+      <strong>製品名：<%= @document.product.name %>の<%= @document.category %>一覧</strong>
+      <% Document.where(product_id: @document.product.id).where(category: @document.category).each do |document| %>
+        <p>タイトル：<%= link_to "#{document.title}", document_path(document.id) %></p>
+        <p>作成日：<%= document.created_at.strftime("%F") %></p>
+      <% end %>
+    </aside>
+  </div>
+</div>  

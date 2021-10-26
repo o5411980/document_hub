@@ -1,51 +1,64 @@
-<p id="notice"><%= notice %></p>
 
-<h3>製品詳細</h3>
-<p>
-  <strong>製品名:</strong>
-  <%= @product.name %>
-</p>
 
-<p>
-  <strong>製品カテゴリー:</strong>
-  <%= @product.category %>
-</p>
+<h4>製品詳細</h4>
+<div class="container-index">
+  <div class="container-show">
 
-<p>
-  <strong>概要:</strong>
-  <%= @product.description %>
-</p>
+    <main class="department-main">
+      <p>
+        <strong>製品名:</strong>
+        <%= @product.name %>
+      </p>
 
-<p>
-  <strong>現況:</strong>
-  <%= @product.status %>
-</p>
+      <p>
+        <strong>製品カテゴリー:</strong>
+        <%= @product.category %>
+      </p>
 
-<p>
-  <strong>製造拠点:</strong>
-  <%= @product.location %>
-</p>
+      <p>
+        <strong>概要:</strong>
+        <%= @product.description %>
+      </p>
 
-<p>
-  <strong>担当プロジェクト:</strong>
-  <%= link_to "#{@product.projects[0].name}", project_path(@product.projects[0].id) %>
-</p>
+      <p>
+        <strong>現況:</strong>
+        <%= @product.status %>
+      </p>
 
-<p>
-  <strong>関連文書:</strong>
-  <% @product.documents.where.not(category: 1..8).each do |document| %>
-    <%= link_to "#{document.title}", document_path(document.id) %>
-  <% end %>
-</p>
+      <p>
+        <strong>製造拠点:</strong>
+        <%= @product.location %>
+      </p>
 
-<%= link_to '編集', edit_product_path(@product) %> |
-<%= link_to '製品一覧', products_path %>
-<h3>デザインレビュー</h3>
-<p>
-  <% @product.reviews.each do |review| %>
-    <strong><%= link_to "#{review.stage}", review_path(review.id) %></strong><br>
-    <% review.review_document_documents.each do |document| %>
-      <%= link_to "#{document.title}", document_path(document.id) %><br>
-    <% end %>
-  <% end %>
-</p>
+      <p>
+        <strong>担当プロジェクト:</strong>
+        <%= link_to "#{@product.projects[0].name}", project_path(@product.projects[0].id) %>
+      </p>
+
+      <p>
+        <strong>関連文書:</strong>
+        <% @product.documents.where.not(category: 1..8).each do |document| %>
+          <%= link_to "#{document.title}", document_path(document.id) %>
+        <% end %>
+      </p>
+
+      <%= link_to '編集', edit_product_path(@product) %> |
+      <%= link_to '製品一覧', products_path %>
+
+    </main>
+
+    <aside class="department-aside">
+
+      <strong>デザインレビュー;</strong>
+      <p>
+        <% @product.reviews.each do |review| %>
+          <strong><%= link_to "#{review.stage}", review_path(review.id) %></strong><br>
+          <% review.review_document_documents.each do |document| %>
+            <%= link_to "#{document.title}", document_path(document.id) %><br>
+          <% end %>
+          <br>
+        <% end %>
+      </p>
+    </aside>
+  </div>
+</div>
