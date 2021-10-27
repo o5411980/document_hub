@@ -13,7 +13,7 @@ project_status = ['活動中', '一時中止', '終了']
 ##departmentsテーブルのデータ作成
 7.times { |i|
   Department.create!(
-    {id: i+1, name: "#{department_name[i]}", location: locations.sample, description: Faker::Lorem.word }
+    {name: "#{department_name[i]}", location: locations.sample, description: Faker::Lorem.word }
   )
 }
 
