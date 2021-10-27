@@ -74,7 +74,6 @@ Product.all.each { |product|
             authorize: true,
             title: "#{product.name}#{element}",
             content: "test",
-            filepath: app/assets/images/test.pdf #プロジェクトパスでpdfを指定。動作未確認。
           }
         )
       end
@@ -88,7 +87,6 @@ Product.all.each { |product|
             authorize: true,
             title: "#{product.name}#{element}",
             content: "test",
-            filepath: app/assets/images/test.pdf #プロジェクトパスでpdfを指定。動作未確認。
           }
         )
       end
