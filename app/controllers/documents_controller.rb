@@ -6,11 +6,6 @@ class DocumentsController < ApplicationController
 
   # GET /documents or /documents.json
   def index
-    products = Product.all
-    @product_choice = []
-    products.each do |product|
-      @product_choice << [product.name, product.id]
-    end
 
 #    @documents = Document.all
     @q = Document.ransack(params[:q])

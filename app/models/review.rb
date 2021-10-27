@@ -15,11 +15,11 @@ class Review < ApplicationRecord
 
   def date_cannot_be_in_the_past
     if date_on.present? && date_on < Date.today
-      errors.add(:expiration_date, ": 過去の日付は使えません")
+      errors.add(:date_on, ": 過去の日付は使えません")
     end
 
     if deadline.present? && deadline < Date.today
-      errors.add(:expiration_date, ": 過去の日付は使えません")
+      errors.add(:deadline, ": 過去の日付は使えません")
     end
   end
 
