@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "tops#index"
   post '/tops/guest_sign_in', to: 'tops#guest_sign_in'
+  post '/tops/normal_guest_sign_in', to: 'tops#normal_guest_sign_in'
 
   resources :documents
   resources :departments

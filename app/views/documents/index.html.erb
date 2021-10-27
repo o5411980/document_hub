@@ -30,10 +30,10 @@
     <!-- <%= f.submit "一括ダウンロード", formaction: documents_path(format: :zip), 'data-disable-with' => false %> -->
   <% end %>
 
-  <% if params[:q].present? %>
+  <% if (params[:q].present?) && (current_user.member_departments[0].name == ("管理課" || "企画課" || "営業課" || "製造課" || "開発課")) %>
     <%= link_to '一括ダウンロード', documents_path(format: :zip, "q"=>{"title_cont"=>"#{params[:q][:title_cont]}", "product_id_eq"=>"#{params[:q][:product_id_eq]}", "product_status_eq"=>params[:q][:product_status_eq], "product_location_eq"=>params[:q][:product_location_eq], "category_eq_any"=>params[:q][:category_eq_any]}), class: 'btn btn-success' %>
   <% else %>
-    <%= link_to '一括ダウンロード', documents_path, class: 'btn btn-success', data: { confirm: 'ダウンロードは検索後に有効になります。' }  %>
+    <%= link_to '一括ダウンロード', documents_path, class: 'btn btn-success', data: { confirm: 'ダウンロードは検索後に有効。所属が”未定”と"その他"の場合、ダウンロード不可。' }  %>
   <% end %>
 
   <table border="0" CELLPADDING=5 CELLSPACING=2 style='border-collapse: separate; border-spacing: 5px;'>
