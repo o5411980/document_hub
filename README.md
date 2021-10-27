@@ -21,17 +21,17 @@
 
 ## 就職Termの技術
 - devise
-- Ajax (承認、コメント機能)
+- Ajax (コメント機能)
 
 
 ## カリキュラム外の技術
 - ransack
 
 ## その他の技術
-- kaminari
+- zipline
 - bootstrap
 - carrierwave
-- mini_magick
+
 
 
 ## 実行手順
