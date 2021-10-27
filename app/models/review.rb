@@ -10,4 +10,18 @@ class Review < ApplicationRecord
 
   enum stage: {'Review 1': 1, 'Review 2': 2, 'Review 3': 3}
   enum judge: {'未承認': false, '承認済': true}
+
+  validate :date_cannot_be_in_the_past
+
+  def date_cannot_be_in_the_past
+    if date_on.present? && date_on < Date.today
+      errors.add(:expiration_date, ": 過去の日付は使えません")
+    end
+
+    if deadline.present? && deadline < Date.today
+      errors.add(:expiration_date, ": 過去の日付は使えません")
+    end
+  end
+
+
 end
