@@ -6,11 +6,7 @@
     <main class="department-main">
       <p>
         <strong>対象製品:</strong>
-        <% if @document.products.count == 0 %>
-          <span>未定</span>
-        <% else %>
-          <%= link_to "#{@document.product.name}", product_path(@document.product.id) %>
-        <% end %>
+        <%= link_to "#{@document.product.name}", product_path(@document.product.id) %>
       </p>
 
       <p>
