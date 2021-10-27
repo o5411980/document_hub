@@ -5,13 +5,22 @@ skip_before_action :authenticate_user!
 
   def guest_sign_in
     user = User.find_or_create_by!(email: 'guest_admin@example.com') do |user|
-#      user.id = User.all.count + 1
       user.name = 'guest_admin'
       user.password = SecureRandom.urlsafe_base64
       user.admin = true
     end
-#    user.members.create(department_id: 1)
     sign_in user
-    redirect_to homes_path, notice: 'ゲストユーザーとしてログイン'
+    redirect_to homes_path, notice: '管理者ゲストユーザーとしてログイン'
   end
+
+  def normal_guest_sign_in
+    user = User.find_or_create_by!(email: 'guest_normal@example.com') do |user|
+      user.name = 'guest_normal'
+      user.password = SecureRandom.urlsafe_base64
+      user.admin = false
+    end
+    sign_in user
+    redirect_to homes_path, notice: '一般ゲストユーザーとしてログイン'
+  end
+
 end
