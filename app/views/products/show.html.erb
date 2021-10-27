@@ -32,7 +32,11 @@
 
       <p>
         <strong>担当プロジェクト:</strong>
-        <%= link_to "#{@product.projects[0].name}", project_path(@product.projects[0].id) %>
+        <% if @product.projects.count == 0%>
+          <span>未定</span>
+        <% else %>
+          <%= link_to "#{@product.projects[0].name}", project_path(@product.projects[0].id) %>
+        <% end %>
       </p>
 
       <p>
