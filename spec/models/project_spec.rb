@@ -1,21 +1,23 @@
 require 'rails_helper'
-describe 'ドキュメントモデル機能', type: :model do
+describe 'project モデル機能', type: :model do
   describe 'バリデーションのテスト' do
     Product.destroy_all
-    product = Product.create(
-      {
-       category: ['マウス', 'キーボード', 'バッテリー'].sample,
-       description: '',
-       status: ['開発中', '製造中', '製造中止'].sample,
-       }
-    )
+    before do
+      @product = Product.create(
+          {
+           category: ['マウス', 'キーボード', 'バッテリー'].sample,
+           description: '',
+           status: ['開発中', '製造中', '製造中止'].sample,
+           }
+        )
+    end
 
     context 'name が空の場合' do
       it 'validationに引っかかる' do
 #        byebug
         project = Project.new(
           {
-            product_id: product.id,
+            product_id: @product.id,
             name: '',
             description: "テストデータ",
           }
@@ -29,8 +31,8 @@ describe 'ドキュメントモデル機能', type: :model do
 #        byebug
         project = Project.new(
           {
-            product_id: product.id,
-            name: "#{product.category}開発プロジェクト",
+            product_id: @product.id,
+            name: "#{@product.category}開発プロジェクト",
             description: "テストデータ",
           }
         )

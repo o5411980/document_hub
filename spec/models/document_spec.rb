@@ -3,22 +3,27 @@ describe 'ドキュメントモデル機能', type: :model do
   describe 'バリデーションのテスト' do
     User.destroy_all
     Product.destroy_all
-    user = User.create(name: 'test03', email: 'test03@example.com', password: 'test03')
-    product = Product.create(
-      {
-       category: ['マウス', 'キーボード', 'バッテリー'].sample,
-       description: '',
-       status: ['開発中', '製造中', '製造中止'].sample,
-       }
-    )
+    before do
+      @user = User.create(name: 'test03',
+        email: 'test03@example.com',
+        password: 'test03'
+      )
+      @product = Product.create(
+        {
+         category: ['マウス', 'キーボード', 'バッテリー'].sample,
+         description: '',
+         status: ['開発中', '製造中', '製造中止'].sample,
+         }
+      )
+    end
 
     context 'title が空の場合' do
       it 'validationに引っかかる' do
 #        byebug
         document = Document.new(
           {
-            product_id: product.id,
-            user_id: user.id,
+            product_id: @product.id,
+            user_id: @user.id,
             category: Document.categories.keys.sample,
             authorize: false,
             title: "",
@@ -34,8 +39,8 @@ describe 'ドキュメントモデル機能', type: :model do
 #        byebug
         document = Document.new(
           {
-            product_id: product.id,
-            user_id: user.id,
+            product_id: @product.id,
+            user_id: @user.id,
             category: "",
             authorize: false,
             title: "test",
@@ -51,8 +56,8 @@ describe 'ドキュメントモデル機能', type: :model do
 #        byebug
         document = Document.create(
           {
-            product_id: product.id,
-            user_id: user.id,
+            product_id: @product.id,
+            user_id: @user.id,
             category: Document.categories.keys.sample,
             authorize: false,
             title: "test",
@@ -60,8 +65,9 @@ describe 'ドキュメントモデル機能', type: :model do
           }
         )
 #        byebug
+        sleep 0.5
         expect(document).to be_valid
-        document.destroy
+#        document.destroy
       end
     end
   end
