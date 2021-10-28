@@ -1,5 +1,6 @@
 class Document < ApplicationRecord
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
+  validates :category, presence: true
 
 
   mount_uploader :filepath, DocumentUploader

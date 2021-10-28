@@ -11,7 +11,7 @@ describe 'ユーザーモデル機能', type: :model do
     end
     context 'name, email, passwordが記載されている場合' do
       it 'validationが通る' do
-        user = User.new(name: 'test02', email: 'test02@example.com', password: 'test02')
+        user = User.create(name: 'test02', email: 'test02@example.com', password: 'test02')
 #        byebug
         expect(user).to be_valid
         user.destroy

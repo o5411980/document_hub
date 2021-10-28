@@ -31,7 +31,7 @@ describe 'プロダクトモデル機能', type: :model do
     end
     context 'category,statusが記載されている場合' do
       it 'validationを通過する' do
-        product = Product.new(
+        product = Product.create(
           {
            category: ['マウス', 'キーボード', 'バッテリー'].sample,
            description: '',
