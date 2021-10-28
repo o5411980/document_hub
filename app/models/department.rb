@@ -1,4 +1,7 @@
 class Department < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :location, presence: true
+
   has_many :members, dependent: :destroy
   has_many :member_users, through: :members, source: :user
 
