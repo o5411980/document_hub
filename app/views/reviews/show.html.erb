@@ -88,8 +88,7 @@
       <p>
         <% @review.review_documents.each do |review_document| %>
           <% document = review_document.document %>
-          <span><%= "#{document.title}" %><span>
-          <span>(<%= link_to "pdf", document.filepath.url %>)</span>
+          <span><%= link_to "#{document.title}", document_path(document.id) %><span>
           <%= form_with scope: :review_document, method: :delete, url: review_document_path(review_document), local: true do |form| %>
             <%= form.submit '審査から除外' %>
           <% end %>

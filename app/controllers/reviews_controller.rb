@@ -45,6 +45,11 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    if params[:review][:judge] == "承認済"
+      @review.review_document_documents.each do |document|
+        document.update(authorize: "承認済")
+      end
+    end
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to @review, notice: "Review was successfully updated." }

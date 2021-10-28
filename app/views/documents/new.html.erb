@@ -1,3 +1,56 @@
 <h4>新規文書の登録</h4>
 
-<%= render 'form', document: @document %>
+<!-- <%= render 'form', document: @document %> -->
+
+<div class="container-index">
+
+  <%= form_with(model: @document, local: true) do |form| %>
+    <% if @document.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+        <ul>
+        <% @document.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title, "文書タイトル" %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= form.label :category, "文書タイプ"  %>
+      <%= form.select :category, Document.categories.keys.to_a %>
+    </div>
+
+    <div class="field">
+      <%= form.label :content, "概要" %>
+      <%= form.text_area :content %>
+    </div>
+
+    <div class="field">
+      <%= form.label :product_id, "対象製品" %>
+      <%= form.select :product_id, Product.all.map { |e| [e.name, e.id] }, include_blank: "選択してください" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :filepath, "PDFファイル"  %>
+      <%= form.file_field :filepath %>
+    </div>
+
+    <div class="field">
+<!--      <%= form.label :authorize, "承認/非承認"  %>
+      <%= form.select :authorize, Document.authorizes.keys.to_a %> -->
+      <%= form.hidden_field :authorize, {value: '未承認'} %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+<%= link_to '文書一覧', documents_path, class: "btn btn-warning btn-sm" %>
+</div>
