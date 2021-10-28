@@ -20,7 +20,7 @@
 
     <div class="field">
       <%= form.label :category, "文書タイプ"  %>
-      <%= form.select :category, Document.categories.keys.to_a, include_blank: "選択してください" %>
+      <%= form.select :category, Document.categories.keys.to_a %>
     </div>
 
     <div class="field">
@@ -30,7 +30,7 @@
 
     <div class="field">
       <%= form.label :product_id, "対象製品" %>
-      <%= form.select :product_id, @product_choice, include_blank: "選択してください" %>
+      <%= form.select :product_id, Product.all.map { |e| [e.name, e.id] }, include_blank: "選択してください" %>
     </div>
 
     <div class="field">
@@ -40,7 +40,7 @@
 
     <div class="field">
       <%= form.label :authorize, "承認/非承認"  %>
-      <%= form.select :authorize, Document.authorizes.keys.to_a, include_blank: "選択してください" %>
+      <%= form.select :authorize, Document.authorizes.keys.to_a %>
     </div>
 
     <div class="actions">

@@ -10,7 +10,7 @@
     <%= f.search_field :title_cont %>
 
     <%= f.label :product_id, "対象製品" %>
-    <%= f.select :product_id_eq, @product_choice, {include_blank: '選択なし'} %>
+    <%= f.select :product_id_eq, Product.all.map { |e| [e.name, e.id] }, {include_blank: '選択なし'} %>
 
     <%= f.label :product_status, "対象製品の状況" %>
     <%= f.select :product_status_eq, Product.statuses.to_a, {include_blank: '選択なし'} %>

@@ -88,8 +88,7 @@
       <p>
         <% @review.review_documents.each do |review_document| %>
           <% document = review_document.document %>
-          <span><%= "#{document.title}" %><span>
-          <span>(<%= link_to "pdf", document.filepath.url %>)</span>
+          <span><%= link_to "#{document.title}", document_path(document.id) %><span>
           <%= form_with scope: :review_document, method: :delete, url: review_document_path(review_document), local: true do |form| %>
             <%= form.submit '審査から除外' %>
           <% end %>
@@ -101,7 +100,9 @@
           <%= form.select :document_id, options_for_select(@documents.map{|d| [d.title, d.id]}), prompt: 'レビュー対象を選択' %>
           <%= form.hidden_field :review_id, value: @review.id %>
           <span class='input-group-append'>
-            <button type="submit" class="btn btn-warning btn-sm">追加</button>
+            <% unless @documents.count == 0 %>
+              <button type="submit" class="btn btn-warning btn-sm">追加</button>
+            <% end %>
           </span>
         <% end %>
       </div>

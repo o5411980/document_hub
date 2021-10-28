@@ -35,7 +35,7 @@
 
     <div class="field">
       <%= form.label :location, "製品場所"  %>
-      <%= form.select :location, Product.locations.keys.to_a, {include_blank: '選択なし'} %>
+      <%= form.select :location, Product.locations.keys.to_a %>
     </div>
 
     <div class="actions">

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  validates :name, presence: true
+
+
   has_many :documents, dependent: :destroy
 
   has_many :members, dependent: :destroy
