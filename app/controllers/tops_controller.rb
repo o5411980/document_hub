@@ -9,7 +9,9 @@ skip_before_action :authenticate_user!
       user.password = SecureRandom.urlsafe_base64
       user.admin = true
     end
+    if user.members.count == 0
     user.members.create(department_id: 2)
+    end
     sign_in user
     redirect_to homes_path, notice: '管理者ゲストユーザーとしてログイン'
   end
@@ -20,7 +22,9 @@ skip_before_action :authenticate_user!
       user.password = SecureRandom.urlsafe_base64
       user.admin = false
     end
-    user.members.create(department_id: 1)
+    if user.members.count == 0
+      user.members.create(department_id: 1)
+    end
     sign_in user
     redirect_to homes_path, notice: '一般ゲストユーザーとしてログイン'
   end
