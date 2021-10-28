@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  validates :category, presence: true
+  validates :status, presence: true
+
   has_many :documents, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :projects, dependent: :destroy

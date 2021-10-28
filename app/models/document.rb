@@ -1,4 +1,7 @@
 class Document < ApplicationRecord
+  validates :title, presence: true
+
+
   mount_uploader :filepath, DocumentUploader
   belongs_to :product
   belongs_to :user
