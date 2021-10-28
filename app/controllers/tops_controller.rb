@@ -8,6 +8,7 @@ skip_before_action :authenticate_user!
       user.name = 'guest_admin'
       user.password = SecureRandom.urlsafe_base64
       user.admin = true
+      user.admin_message = 'ISO文書の取得；製品一覧 > 拠点を選択して検索 > ISO文書 > 一括ダウンロード'
     end
     if user.members.count == 0
       user.members.create(department_id: 2)
