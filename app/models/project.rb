@@ -1,4 +1,8 @@
 class Project < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 255 }
+
+
+
   has_many :reviews, dependent: :destroy
   belongs_to :product
 
