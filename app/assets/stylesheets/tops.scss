@@ -18,3 +18,19 @@
   width: 100%;
   height: auto;
 }
+
+.how_to_use image {
+  width: 300px;
+  height: auto;
+  item_align-items: center;
+}
+
+.container-top {
+  padding-top: 1%;
+  padding-left: 4%;
+  border-top: 1px solid #ccc;
+}
+
+.container-top strong p li span {
+  font-size: 2em;
+}
