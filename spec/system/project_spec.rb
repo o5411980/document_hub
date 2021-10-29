@@ -53,7 +53,7 @@ RSpec.describe '4,project CRUDのテスト', type: :system do
       Project.create!(name: 'TEST', product_id: "#{@product.id}")
     end
     context 'プロジェクト一覧の画面で削除をクリックすると、' do
-      it "プロジェクト製品が削除できること。" do
+      it "該当プロジェクトが削除できること。" do
         visit root_path
         click_on 'ゲストログイン(管理者)'
         sleep 0.1

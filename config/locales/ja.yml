@@ -266,7 +266,7 @@ ja:
       update: 'プロジェクト情報を更新しました。'
       destroy: 'プロジェクトを削除しました。'
     product:
-      create: '製品を作成しました。'
+      create: '製品を登録しました。'
       update: '製品情報を更新しました。'
       destroy: '製品を削除しました。'
     document:
