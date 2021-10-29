@@ -48,8 +48,8 @@ RSpec.describe '2,department CRUDのテスト', type: :system do
       Department.destroy_all
       Department.create!(name: 'TEST', location: '東京')
     end
-    context '部署情報の編集画面で必要事項を記入すると、' do
-      it "部署情報が更新できること。" do
+    context '部署一覧の画面で削除をクリックすると、' do
+      it "該当部署が削除できること。" do
         visit root_path
         click_on 'ゲストログイン(管理者)'
         sleep 0.1
