@@ -3,7 +3,8 @@
   <%= form_with(model: project, local: true) do |form| %>
     <% if project.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<!--        <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2> -->
+        <h2><%= project.errors.count %>  <%= I18n.t('views.errors.validation') %> </h2>
 
         <ul>
         <% project.errors.full_messages.each do |message| %>
@@ -30,7 +31,7 @@
 
     <div class="field">
       <%= form.label :product_id, "担当製品" %>
-      <%= form.select :product_id, Product.all.map{|p| [p.name, p.id]} %>
+      <%= form.select :product_id, Product.all.map{|p| [p.name, p.id]}, prompt: '対象製品を選択'  %>
     </div>
 
     <div class="actions">

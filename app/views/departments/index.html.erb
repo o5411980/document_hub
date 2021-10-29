@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <h4>部署一覧</h4>
 <div class="container-index">
@@ -33,7 +33,7 @@
           <td><%= department.member_users.count %>人</td>
           <td><%= link_to '詳細', department %></td>
           <td><%= link_to '編集', edit_department_path(department) %></td>
-          <td><%= link_to '削除', department, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin == true %></td>
+          <td><%= link_to '削除', department, method: :delete, data: { confirm: I18n.t('views.confirms.delete') } if current_user.admin == true %></td>
         </tr>
       <% end %>
     </tbody>

@@ -35,7 +35,7 @@
         <% if current_user.member_departments[0].name == ("管理課" || "企画課" || "営業課" || "製造課" || "開発課") %>
           <%= link_to '(pdf)', @document.filepath.url %>
         <% else %>
-          <%= link_to '(pdf)', document_path(@document.id), data: { confirm: '所属部署が”所属未定”と”その他”のユーザーはpdf閲覧ができません。' }   %>
+          <%= link_to '(pdf)', document_path(@document.id), data: { confirm: I18n.t('views.confirms.pdf') }   %>
         <% end %>
       </p>
 
