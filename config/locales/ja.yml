@@ -251,3 +251,5 @@ ja:
       task_count: '登録タスク数'
     errors:
       validation: '件のエラーが発生したためデータを更新できません:'
+    confirms:
+      delete: '本当に削除しますか？'

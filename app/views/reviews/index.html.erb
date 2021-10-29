@@ -43,7 +43,7 @@
           <td><%= review.judge %></td>
           <td><%= link_to '詳細', review %></td>
           <td><%= link_to '編集', edit_review_path(review) %></td>
-          <td><%= link_to '削除', review, method: :delete, data: { confirm: 'Are you sure?' } if current_user.admin == true %></td>
+          <td><%= link_to '削除', review, method: :delete, data: { confirm: I18n.t('views.confirms.delete') } if current_user.admin == true %></td>
         </tr>
       <% end %>
     </tbody>

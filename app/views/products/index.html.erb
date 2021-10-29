@@ -60,7 +60,7 @@
           <td><%= product.reviews.where(stage: "Review 3", judge: true).first.updated_at.strftime("%Y年%m月%d日") unless product.reviews.where(stage: "Review 3", judge: true).count == 0 %></td>
           <td><%= link_to '詳細', product %></td>
           <td><%= link_to '編集', edit_product_path(product) %></td>
-          <td><%= link_to '削除', product, method: :delete, data: { confirm: '本当に削除しますか?' } if current_user.admin == true %></td>
+          <td><%= link_to '削除', product, method: :delete, data: { confirm: I18n.t('views.confirms.delete') } if current_user.admin == true %></td>
         </tr>
       <% end %>
     </tbody>
