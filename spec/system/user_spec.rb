@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'User CRUDのテスト', type: :system do
-  describe '1,ユーザー登録のテスト' do
+RSpec.describe '1, User CRUDのテスト', type: :system do
+  describe '1-1,ユーザー登録のテスト' do
     context 'サインアップ画面で必要事項を記入すると、' do
       it "ユーザーの新規登録ができること" do
         User.destroy_all
@@ -17,7 +17,7 @@ RSpec.describe 'User CRUDのテスト', type: :system do
     end
   end
 
-  describe '2,セッション機能のテスト' do
+  describe '1-2,セッション機能のテスト' do
     before do
       User.destroy_all
       User.create!(name: 'test01', email: 'test01@example.com', password: 'test01', admin: false)
@@ -36,7 +36,7 @@ RSpec.describe 'User CRUDのテスト', type: :system do
     end
   end
 
-  describe '3,プロフィール更新のテスト' do
+  describe '1-3,プロフィール更新のテスト' do
     before do
       User.destroy_all
       User.create!(name: 'test01', email: 'test01@example.com', password: 'test01', admin: false)
@@ -64,7 +64,7 @@ RSpec.describe 'User CRUDのテスト', type: :system do
     end
   end
 
-  describe '4,管理者機能のテスト' do
+  describe '1-4,管理者機能のテスト' do
     context '管理者は、' do
       it "管理画面にアクセスできること" do
         visit root_path
@@ -77,7 +77,7 @@ RSpec.describe 'User CRUDのテスト', type: :system do
     end
   end
 
-  describe '5,管理者機能のテスト' do
+  describe '1-5,管理者機能のテスト' do
     before do
       User.destroy_all
       User.create!(name: 'test01', email: 'test01@example.com', password: 'test01', admin: false)
