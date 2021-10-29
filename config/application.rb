@@ -12,6 +12,7 @@ module TechDocumentHub
     config.load_defaults 5.2
     config.i18n.available_locales = %i[ja]
     config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
 
     config.generators do |g|
       g.test_framework :rspec,
