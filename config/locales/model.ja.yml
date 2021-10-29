@@ -7,6 +7,12 @@ ja:
       product: 製品
       document: 文書
       review: レビュー
+      author: 著者
+      authorizer: 承認者
+      member: 部署所属メンバー
+      project_user: プロジェクトメンバー
+      review_document: レビュー対象文書
+      reviewer: レビュー担当者
     attributes:
       department:
         name: 部署の名称
