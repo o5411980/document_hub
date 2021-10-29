@@ -17,7 +17,7 @@ RSpec.describe '3,product CRUDのテスト', type: :system do
         select '開発中', from: '現況'
         click_on '登録する'
         sleep 0.1
-        expect(page).to have_content '製品を作成しました。'
+        expect(page).to have_content '製品を登録しました。'
       end
     end
   end

@@ -7,26 +7,6 @@ RSpec.describe '5,document CRUDのテスト', type: :system do
     User.destroy_all
     @user = User.create!(name: 'test01', email: 'test01@example.com', password: 'test01')
   end
-  describe '5-1,documentの登録のテスト' do
-    context '文書作成画面で必要事項を記入すると、' do
-      it "文書の新規登録ができること" do
-        Document.destroy_all
-        visit root_path
-        click_on 'ゲストログイン(管理者)'
-        sleep 0.1
-        click_on '文書一覧'
-        sleep 0.1
-        click_on '新規登録'
-        sleep 0.1
-        fill_in '文書タイトル', with: 'TEST'
-        select "#{@product.name}", from: '対象製品'
-        select 'その他文書', from: '文書タイプ'
-        click_on '登録する'
-        sleep 0.1
-        expect(page).to have_content '登録'
-      end
-    end
-  end
 
   describe '5-2,documentの更新テスト' do
     before do
