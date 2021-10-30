@@ -7,7 +7,7 @@
     <%= f.label :name, "部署名" %>
     <%= f.search_field :name_cont %>
 
-    <%= f.label :location, "Location" %>
+    <%= f.label :location, I18n.t('attributes.department.location') %>
     <%= f.select :location_eq, Department.locations.to_a, {include_blank: '選択なし'} %>
 
     <%= f.submit "検索" %>

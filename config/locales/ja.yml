@@ -277,3 +277,50 @@ ja:
       create: 'レビューを作成しました。'
       update: 'レビュー情報を更新しました。'
       destroy: 'レビューを削除しました。'
+  attributes:
+    department:
+      name: 部署の名称
+      location: 所在地
+      leader: 部門長
+      description: 部署の概要
+    user:
+      name: ユーザー名
+      mr_ms: 性別
+      email: メールアドレス
+      password: パスワード
+      password_confirmation: パスワード再入力
+      admin: 管理者権限
+      employee_number: 社員番号
+      icon: アイコン画像
+      comment: コメント
+      admin_message: 管理者メッセージ
+    project:
+      product: 担当製品
+      name: プロジェクト名
+      status: プロジェクトの状態
+      description: プロジェクト概要
+    product:
+      name: 製品名
+      category: 製品タイプ
+      description: 製品概要
+      status: 製品の現況
+      location: 製造場所
+    document:
+      product: 対象製品
+      category: 文書の分類
+      control_number: 文書管理番号
+      authorize: 承認/未承認
+      title: タイトル
+      content: コメント
+      filepath: アップロードファイル
+    review:
+      project: 担当プロジェクト
+      product: 対象製品
+      requester: 主催者
+      stage: レビューの段階
+      description: レビュー概要
+      former_review: 前段階のレビュー
+      date_on: レビュー開催日
+      deadline: レビュー期限
+      judge: レビュー判定
+      comment: レビューコメント  
